@@ -1,15 +1,29 @@
 using System;
+using System.IO;
 using UnityEngine;
+using Zenject;
 
-[CreateAssetMenu(fileName = "EnemyFactory", menuName = "Factory/EnemyFactory")]
-public class EnemyFactory : ScriptableObject
+public class EnemyFactory
 {
-    [SerializeField] private EnemyConfig _redEnemy, _greenEnemy, _blueEnemy;
+    private const string ConfigsPath = "Enemies";
+    private const string RedEnemyConfig = "RedEnemy";
+    private const string BlueEnemyConfig = "BlueEnemy";
+    private const string GreenEnemyConfig = "GreenEnemy";
+
+    private EnemyConfig _redEnemy, _greenEnemy, _blueEnemy;
+    private DiContainer _container;
+
+    public EnemyFactory(DiContainer container)
+    {
+        _container = container;
+        Load();
+    }
 
     public Enemy GetEnemy(EnemyType enemyType)
     {
+        Debug.Log("Запустился гет энеми");
         EnemyConfig config = GetConfigBy(enemyType);
-        Enemy instanse = Instantiate(config.Prefab);
+        Enemy instanse = _container.InstantiatePrefabForComponent<Enemy>(config.Prefab);
         instanse.Initizlize(config.Health, config.Speed);
         return instanse;
     }
@@ -29,5 +43,12 @@ public class EnemyFactory : ScriptableObject
 
             default: throw new ArgumentException(nameof(enemyType));
         }
+    }
+
+    private void Load ()
+    {
+        _redEnemy = Resources.Load<EnemyConfig>(Path.Combine(ConfigsPath, RedEnemyConfig)); 
+        _greenEnemy = Resources.Load<EnemyConfig>(Path.Combine(ConfigsPath, GreenEnemyConfig));
+        _blueEnemy = Resources.Load<EnemyConfig>(Path.Combine(ConfigsPath, BlueEnemyConfig));
     }
 }

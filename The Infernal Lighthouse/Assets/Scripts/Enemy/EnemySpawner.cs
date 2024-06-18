@@ -2,15 +2,23 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 using Random = UnityEngine.Random;
 
 public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] private float _spawnCooldown;
     [SerializeField] private List<Transform> _spawnPoints;
-    [SerializeField] private EnemyFactory _enemyFactory;
+    private EnemyFactory _enemyFactory;
 
     private Coroutine _spawnCoroutine;
+
+    [Inject]
+    private void Construct (EnemyFactory enemyFactory)
+    {
+        _enemyFactory = enemyFactory;
+        Debug.Log("Фабрика прокинута в спавнер");
+    }
 
     public void StartWork ()
     {

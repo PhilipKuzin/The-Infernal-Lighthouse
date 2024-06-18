@@ -3,13 +3,12 @@ using UnityEngine;
 using Zenject;
 
 [RequireComponent(typeof(Rigidbody), typeof(CapsuleCollider))]
-public class Lighthouse : MonoBehaviour
+public class Lighthouse : MonoBehaviour, IDamagable, IEnemyTarget
 {
     [SerializeField] private Rigidbody _rb;
-
     private MovementHandler _movementHandler;
-
     private float _moveSpeed = 10;
+    public Vector3 Position => transform.position;
 
     [Inject]
     private void Construct(MovementHandler movementHandler)
@@ -45,5 +44,8 @@ public class Lighthouse : MonoBehaviour
         }
     }
 
-
+    public void TakeDamage()
+    {
+        throw new NotImplementedException();
+    }
 }

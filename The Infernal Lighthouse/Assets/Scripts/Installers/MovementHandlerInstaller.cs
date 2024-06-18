@@ -1,6 +1,8 @@
+using System;
+using UnityEngine;
 using Zenject;
 
-public class GameSceneInstaller : MonoInstaller
+public class MovementHandlerInstaller : MonoInstaller
 {
     public override void InstallBindings()
     {

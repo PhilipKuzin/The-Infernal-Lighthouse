@@ -1,18 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
 public class Enemy : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private int _health;
+    private float _speed;
+
+    public void Initizlize (int health, float speed)
     {
-        
+        _health = health;
+        _speed = speed;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void MoveTo (Vector3 position) => transform.position = position;
+
+    public void TakeDamage()
     {
-        
+        Debug.Log("Damage applied!");
+        Destroy (gameObject);
     }
 }

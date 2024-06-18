@@ -74,3 +74,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51cc805a0d3cc884dbcd695644ae2c94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _joystickSpawnPosition: {fileID: 0}
+  _fixedJoystickPrefab: {fileID: 2929252283123773951, guid: aaa2c939c0359ac4dbce3f49e8b90252, type: 3}

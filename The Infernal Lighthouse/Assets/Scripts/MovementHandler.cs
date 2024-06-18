@@ -1,8 +1,5 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using Zenject;
 
 public class MovementHandler : IDisposable
 {
@@ -11,14 +8,11 @@ public class MovementHandler : IDisposable
     public event Action<Vector3> OnMove;
     public event Action<Vector3> OnClicked;
 
-
     public MovementHandler(IInput input)
     {
         _input = input;
-
         _input.OnPointerMove += Move;
         _input.OnClicked += Click;
-
     }
 
     public void Click(Vector3 position)

@@ -9,19 +9,27 @@ public class Lighthouse : MonoBehaviour
 
     private MovementHandler _movementHandler;
 
-    private float moveSpeed = 10;
+    private float _moveSpeed = 10;
 
     [Inject]
     private void Construct(MovementHandler movementHandler)
     {
         _movementHandler = movementHandler;
         _movementHandler.OnMove += LookOnCursor;
-        _movementHandler.OnClicked += DebugClickFromLighthouse; ;
+        _movementHandler.OnClicked += ClickAction;
     }
 
-    private void DebugClickFromLighthouse(Vector3 vector)
+    private void ClickAction(Vector3 position)
     {
         Debug.Log("DebugClickFromLighthouse");
+        Ray ray = Camera.main.ScreenPointToRay(position);
+        if(Physics.Raycast(ray, out RaycastHit hit)) 
+        {
+            GameObject go = hit.transform.gameObject;
+
+            if (go.TryGetComponent(out Enemy enemy))
+                enemy.TakeDamage();
+        }
     }
 
     void LookOnCursor(Vector3 position)
@@ -33,7 +41,7 @@ public class Lighthouse : MonoBehaviour
         {
             Vector3 targetPoint = ray.GetPoint(hitdist);
             Quaternion targetRotation = Quaternion.LookRotation(targetPoint - transform.position);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, moveSpeed * Time.deltaTime);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, _moveSpeed * Time.deltaTime);
         }
     }
 

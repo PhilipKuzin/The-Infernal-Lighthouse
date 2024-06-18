@@ -1,10 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
 public class Level : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [SerializeField] private EnemySpawner _spawner;
+
+    private void Awake()
+    {
+        _spawner.StartWork();
+    }
     void Start()
     {
         

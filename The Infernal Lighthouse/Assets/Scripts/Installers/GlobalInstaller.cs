@@ -1,4 +1,3 @@
-using UnityEngine;
 using Zenject;
 
 public class GlobalInstaller : MonoInstaller
@@ -10,14 +9,6 @@ public class GlobalInstaller : MonoInstaller
 
     private void BindInput()
     {
-        if (SystemInfo.deviceType == DeviceType.Handheld)
-        {
-            Container.BindInterfacesTo<MobileInput>().AsSingle();
-        }
-        else
-        {
-            Container.BindInterfacesTo<DesktopInput>().AsSingle();
-        }
-        
+        Container.BindInterfacesTo<DesktopInput>().AsSingle();
     }
 }

@@ -17,7 +17,7 @@ public class EnemySpawner : MonoBehaviour
     private void Construct (EnemyFactory enemyFactory)
     {
         _enemyFactory = enemyFactory;
-        Debug.Log("Фабрика прокинута в спавнер");
+       // Debug.Log("Фабрика прокинута в спавнер");
     }
 
     public void StartWork ()

@@ -115,11 +115,11 @@ GameObject:
   m_Component:
   - component: {fileID: 2810956869161098483}
   - component: {fileID: 7800586845567982431}
-  - component: {fileID: 1308472188733496119}
+  - component: {fileID: 2619344541734500481}
   - component: {fileID: 95778051758347831}
   m_Layer: 0
   m_Name: Lighthouse
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -164,12 +164,12 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 94
   m_CollisionDetection: 0
---- !u!136 &1308472188733496119
-CapsuleCollider:
+--- !u!65 &2619344541734500481
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -183,14 +183,12 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.71
-  m_Height: 2.975448
-  m_Direction: 1
-  m_Center: {x: 0, y: 1.4999999, z: 0}
+  serializedVersion: 3
+  m_Size: {x: 1, y: 3, z: 1}
+  m_Center: {x: 0, y: 1.5, z: 0}
 --- !u!114 &95778051758347831
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -203,7 +201,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20fb6ebc3be36ba4f9d73833a3eb7481, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rb: {fileID: 0}
 --- !u!1 &8330399372038161690
 GameObject:
   m_ObjectHideFlags: 0

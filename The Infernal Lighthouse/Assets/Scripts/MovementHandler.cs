@@ -17,13 +17,13 @@ public class MovementHandler : IDisposable
 
     public void Click(Vector3 position)
     {
-        Debug.Log($"Click at position {position}");
+        //Debug.Log($"Click at position {position}");
         OnClicked?.Invoke(position);
     }
 
     public void Move(Vector3 position)
     {
-        Debug.Log("Move is in progress");
+        // Debug.Log("Move is in progress");
         OnMove?.Invoke(position);
     }
 

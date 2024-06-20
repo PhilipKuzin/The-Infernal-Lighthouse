@@ -21,7 +21,7 @@ public class EnemyFactory
 
     public Enemy GetEnemy(EnemyType enemyType)
     {
-        Debug.Log("Запустился гет энеми");
+        //Debug.Log("Запустился гет энеми");
         EnemyConfig config = GetConfigBy(enemyType);
         Enemy instanse = _container.InstantiatePrefabForComponent<Enemy>(config.Prefab);
         instanse.Initizlize(config.Health, config.Speed);

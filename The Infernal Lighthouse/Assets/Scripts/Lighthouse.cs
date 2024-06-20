@@ -1,42 +1,39 @@
-using System;
 using UnityEngine;
 using Zenject;
 
-[RequireComponent(typeof(Rigidbody), typeof(CapsuleCollider))]
-public class Lighthouse : MonoBehaviour, IDamagable, IEnemyTarget
+[RequireComponent(typeof(Rigidbody), typeof(BoxCollider))]
+public class Lighthouse : MonoBehaviour, IDamageable, IEnemyTarget
 {
-    [SerializeField] private Rigidbody _rb;
+    private RaycastAttak _raycastAttack;
     private MovementHandler _movementHandler;
     private float _moveSpeed = 10;
     public Vector3 Position => transform.position;
 
     [Inject]
-    private void Construct(MovementHandler movementHandler)
+    private void Construct(MovementHandler movementHandler, RaycastAttak raycastAttak)
     {
         _movementHandler = movementHandler;
+        _raycastAttack = raycastAttak;
         _movementHandler.OnMove += LookOnCursor;
         _movementHandler.OnClicked += ClickAction;
     }
 
-    private void ClickAction(Vector3 position)
+    public void TakeDamage()
     {
-        Debug.Log("DebugClickFromLighthouse");
-        Ray ray = Camera.main.ScreenPointToRay(position);
-        if(Physics.Raycast(ray, out RaycastHit hit)) 
-        {
-            GameObject go = hit.transform.gameObject;
-
-            if (go.TryGetComponent(out Enemy enemy))
-                enemy.TakeDamage();
-        }
+        Debug.Log("DAMAGE APPLIED BY LIGHTHOUSE");
     }
 
-    void LookOnCursor(Vector3 position)
+    private void ClickAction(Vector3 position)
+    {
+        _raycastAttack.PerformAttack(position);
+    }
+
+    private void LookOnCursor(Vector3 position)
     {
         Plane playerPlane = new Plane(Vector3.up, transform.position);
         Ray ray = Camera.main.ScreenPointToRay(position);
-        float hitdist = 0;
-        if (playerPlane.Raycast(ray, out hitdist))
+
+        if (playerPlane.Raycast(ray, out float hitdist))
         {
             Vector3 targetPoint = ray.GetPoint(hitdist);
             Quaternion targetRotation = Quaternion.LookRotation(targetPoint - transform.position);
@@ -44,8 +41,5 @@ public class Lighthouse : MonoBehaviour, IDamagable, IEnemyTarget
         }
     }
 
-    public void TakeDamage()
-    {
-        throw new NotImplementedException();
-    }
+
 }

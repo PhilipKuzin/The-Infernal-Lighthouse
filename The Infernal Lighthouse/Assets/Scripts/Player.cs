@@ -2,10 +2,13 @@ using UnityEngine;
 using Zenject;
 
 [RequireComponent(typeof(Rigidbody), typeof(BoxCollider))]
-public class Lighthouse : MonoBehaviour, IDamageable, IEnemyTarget
+public class Player : MonoBehaviour, IDamageable, IEnemyTarget
 {
     private RaycastAttak _raycastAttack;
     private MovementHandler _movementHandler;
+
+    private int _maxHealth = 100;
+    private int _currentHealth; 
     private float _moveSpeed = 10;
     public Vector3 Position => transform.position;
 

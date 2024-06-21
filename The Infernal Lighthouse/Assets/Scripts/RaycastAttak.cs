@@ -2,13 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RaycastAttak : MonoBehaviour
+public class RaycastAttak 
 {
-    [SerializeField] private ParticleSystem _hitParticleSystem;
+    private ParticleService _particleService;
 
-    private float _hitEffectDestroyDelay = 2;
+    public RaycastAttak(ParticleService particleService)
+    {
+        _particleService = particleService;
+    }
 
-    public void PerformAttack(Vector3 position)
+    public void PerformAttack(Vector3 position)  // потенциально добавл€ем флаг разброса (дробовик) и дополн€ем логику примером от night train code 
     {
         Ray ray = Camera.main.ScreenPointToRay(position);
         if (Physics.Raycast(ray, out RaycastHit hitInfo))
@@ -17,25 +20,13 @@ public class RaycastAttak : MonoBehaviour
 
             if (hitCollider.TryGetComponent(out IDamageable enemy))
             {
-                SpawnParticleEffectOnHit(hitInfo);
+                _particleService.SpawnParticleEffectOnHit(hitInfo);
                 enemy.TakeDamage();
             }
             else
             {
-                // если компонент IDamagable не найден (например партиклы промаха) 
+                _particleService.SpawnParticleEffectOnMiss(hitInfo);
             }
         }
     }
-
-    private void SpawnParticleEffectOnHit(RaycastHit hitInfo)
-    {
-        Debug.Log("ќтработал SpawnEffectOnHit");
-
-
-        var hitEffectRotation = Quaternion.LookRotation(hitInfo.normal);
-        var hitEffect = Instantiate(_hitParticleSystem, hitInfo.point, hitEffectRotation);
-
-        Destroy(hitEffect.gameObject, _hitEffectDestroyDelay);
-    }
-
 }

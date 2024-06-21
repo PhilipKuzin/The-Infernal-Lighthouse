@@ -118,7 +118,7 @@ GameObject:
   - component: {fileID: 2619344541734500481}
   - component: {fileID: 95778051758347831}
   m_Layer: 0
-  m_Name: Lighthouse
+  m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -245,9 +245,9 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 10
+  m_Intensity: 1.5
   m_Range: 40
-  m_SpotAngle: 29
+  m_SpotAngle: 106.6
   m_InnerSpotAngle: 1
   m_CookieSize: 10
   m_Shadows:

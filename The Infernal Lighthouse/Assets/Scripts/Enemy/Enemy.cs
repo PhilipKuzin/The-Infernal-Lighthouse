@@ -38,7 +38,7 @@ public class Enemy : MonoBehaviour, IDamageable
             return;
         else if (collision.gameObject.CompareTag("Player"))
         {
-            Lighthouse lighthouse = collision.gameObject.GetComponent<Lighthouse>();
+            Player lighthouse = collision.gameObject.GetComponent<Player>();
             lighthouse.TakeDamage();
             Destroy(gameObject); // заменить на дестрой + частицы
         }

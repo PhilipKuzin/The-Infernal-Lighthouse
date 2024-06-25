@@ -327,7 +327,7 @@ namespace Zenject
             _container.Bind(typeof(SceneKernel), typeof(MonoKernel))
                 .To<SceneKernel>().FromNewComponentOn(gameObject).AsSingle().NonLazy();
 
-            _container.Bind<ZenjectSceneLoader>().AsSingle();
+            _container.BindIntefacesAndSelfTo<ZenjectSceneLoader>().AsSingle();
 
             if (ExtraBindingsInstallMethod != null)
             {

@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class RaycastAttak 
 {
+    
     private ParticleService _particleService;
-
     public RaycastAttak(ParticleService particleService)
     {
         _particleService = particleService;
@@ -18,7 +18,7 @@ public class RaycastAttak
         {
             Collider hitCollider = hitInfo.collider;
 
-            if (hitCollider.TryGetComponent(out IDamageable enemy))
+            if (hitCollider.TryGetComponent(out IDamageable enemy)) // партиклы на ма€ке по€вл€ютс€ из-за того что ма€к тоже IDamageable (ѕќƒ”ћј“№!) проверка IS ? 
             {
                 _particleService.SpawnParticleEffectOnHit(hitInfo);
                 enemy.TakeDamage();

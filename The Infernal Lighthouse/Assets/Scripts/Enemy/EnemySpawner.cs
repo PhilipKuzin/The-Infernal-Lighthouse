@@ -42,4 +42,6 @@ public class EnemySpawner : MonoBehaviour
             yield return new  WaitForSeconds (_spawnCooldown);
         }
     }
+
+    // сделать паблик метод для установки нужного enemyType selectedType в зависимости от "опыта" игрока (количества убитых врагов) 
 }

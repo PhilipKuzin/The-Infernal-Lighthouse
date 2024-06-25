@@ -24,7 +24,7 @@ namespace Zenject
 
             Container.DefaultParent = defaultParent.transform;
 
-            Container.Bind<IDisposable>()
+            Container.BindIntefacesAndSelfTo<IDisposable>()
                 .To<DefaultParentObjectDestroyer>().AsCached().WithArguments(defaultParent);
 
             // Always destroy the default parent last so that the non-monobehaviours get a chance

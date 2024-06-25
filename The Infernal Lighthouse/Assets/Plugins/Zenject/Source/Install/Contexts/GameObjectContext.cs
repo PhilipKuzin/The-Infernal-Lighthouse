@@ -183,17 +183,17 @@ namespace Zenject
         {
             _container.DefaultParent = transform;
 
-            _container.Bind<Context>().FromInstance(this);
-            _container.Bind<GameObjectContext>().FromInstance(this);
+            _container.BindIntefacesAndSelfTo<Context>().FromInstance(this);
+            _container.BindIntefacesAndSelfTo<GameObjectContext>().FromInstance(this);
 
             if (_kernel == null)
             {
-                _container.Bind<MonoKernel>()
+                _container.BindIntefacesAndSelfTo<MonoKernel>()
                     .To<DefaultGameObjectKernel>().FromNewComponentOn(gameObject).AsSingle().NonLazy();
             }
             else
             {
-                _container.Bind<MonoKernel>().FromInstance(_kernel).AsSingle().NonLazy();
+                _container.BindIntefacesAndSelfTo<MonoKernel>().FromInstance(_kernel).AsSingle().NonLazy();
             }
 
             InstallSceneBindings(injectableMonoBehaviours);

@@ -95,7 +95,7 @@ namespace Zenject
 
         public void InstallDecoratorSceneBindings()
         {
-            _container.Bind<SceneDecoratorContext>().FromInstance(this);
+            _container.BindIntefacesAndSelfTo<SceneDecoratorContext>().FromInstance(this);
             InstallSceneBindings(_injectableMonoBehaviours);
         }
 

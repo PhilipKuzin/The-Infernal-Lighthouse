@@ -89,7 +89,7 @@ namespace Zenject
         protected static ConditionCopyNonLazyBinder AddBindingInternal<TDerived>(DiContainer container, TKey key)
             where TDerived : TBase
         {
-            return container.Bind<ValuePair<TKey, Type>>()
+            return container.BindIntefacesAndSelfTo<ValuePair<TKey, Type>>()
                 .FromInstance(ValuePair.New(key, typeof(TDerived)));
         }
     }

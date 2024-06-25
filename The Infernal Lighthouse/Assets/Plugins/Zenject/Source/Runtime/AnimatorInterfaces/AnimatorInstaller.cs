@@ -13,8 +13,8 @@ namespace Zenject
 
         public override void InstallBindings()
         {
-            Container.Bind<AnimatorIkHandlerManager>().FromNewComponentOn(_animator.gameObject);
-            Container.Bind<AnimatorIkHandlerManager>().FromNewComponentOn(_animator.gameObject);
+            Container.BindIntefacesAndSelfTo<AnimatorIkHandlerManager>().FromNewComponentOn(_animator.gameObject);
+            Container.BindIntefacesAndSelfTo<AnimatorIkHandlerManager>().FromNewComponentOn(_animator.gameObject);
         }
     }
 }

@@ -2692,7 +2692,7 @@ namespace Zenject
         public ConcreteBinderGeneric<TContract> RebindId<TContract>(object identifier)
         {
             UnbindId<TContract>(identifier);
-            return Bind<TContract>().WithId(identifier);
+            return BindIntefacesAndSelfTo<TContract>().WithId(identifier);
         }
 
         public ConcreteBinderNonGeneric Rebind(Type contractType)
@@ -2708,7 +2708,7 @@ namespace Zenject
 
         // Map the given type to a way of obtaining it
         // Note that this can include open generic types as well such as List<>
-        public ConcreteIdBinderGeneric<TContract> Bind<TContract>()
+        public ConcreteIdBinderGeneric<TContract> BindIntefacesAndSelfTo<TContract>()
         {
             return Bind<TContract>(StartBinding());
         }
@@ -3525,7 +3525,7 @@ namespace Zenject
             Assert.That(type.DerivesFrom<IFixedTickable>(),
                 "Expected type '{0}' to derive from IFixedTickable", type);
 
-            return Bind<ValuePair<Type, int>>().WithId("Fixed")
+            return BindIntefacesAndSelfTo<ValuePair<Type, int>>().WithId("Fixed")
                 .FromInstance(ValuePair.New(type, order)).WhenInjectedInto<TickableManager>();
         }
 
@@ -3540,7 +3540,7 @@ namespace Zenject
             Assert.That(type.DerivesFrom<ILateTickable>(),
                 "Expected type '{0}' to derive from ILateTickable", type);
 
-            return Bind<ValuePair<Type, int>>().WithId("Late")
+            return BindIntefacesAndSelfTo<ValuePair<Type, int>>().WithId("Late")
                 .FromInstance(ValuePair.New(type, order)).WhenInjectedInto<TickableManager>();
         }
 
@@ -3555,7 +3555,7 @@ namespace Zenject
             Assert.That(type.DerivesFrom<IPoolable>(),
                 "Expected type '{0}' to derive from IPoolable", type);
 
-            return Bind<ValuePair<Type, int>>()
+            return BindIntefacesAndSelfTo<ValuePair<Type, int>>()
                 .FromInstance(ValuePair.New(type, order)).WhenInjectedInto<PoolableManager>();
         }
 

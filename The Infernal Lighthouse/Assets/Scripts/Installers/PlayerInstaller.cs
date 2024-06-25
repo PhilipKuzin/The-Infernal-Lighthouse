@@ -11,21 +11,21 @@ public class PlayerInstaller : MonoInstaller
     {
         BindParticleService();
         BindRaycastAttack();
-        BindLighhouse();
+        BindPlayer();
     }
 
     private void BindParticleService()
     {
         ParticleService particleService = Container.InstantiatePrefabForComponent<ParticleService>(_particleService, new Vector3(0, 0, 0), Quaternion.identity, null);
-        Container.Bind<ParticleService>().FromInstance(particleService).AsSingle();
+        Container.BindIntefacesAndSelfTo<ParticleService>().FromInstance(particleService).AsSingle();
     }
 
     private void BindRaycastAttack()
     {
-        Container.Bind<RaycastAttak>().AsSingle();
+        Container.BindIntefacesAndSelfTo<RaycastAttak>().AsSingle();
     }
 
-    private void BindLighhouse()
+    private void BindPlayer()
     {
         Player player = Container.InstantiatePrefabForComponent<Player>(_playerPrefab, _playerSpawnPoint.position, Quaternion.identity, null);
         Container.BindInterfacesAndSelfTo<Player>().FromInstance(player).AsSingle();

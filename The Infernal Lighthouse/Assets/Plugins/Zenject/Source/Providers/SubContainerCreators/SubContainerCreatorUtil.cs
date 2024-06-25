@@ -27,7 +27,7 @@ namespace Zenject
                 {
                     parentContainer.BindInterfacesTo<Kernel>().FromSubContainerResolve()
                         .ByInstance(subContainer).AsCached();
-                    subContainer.Bind<Kernel>().AsCached();
+                    subContainer.BindIntefacesAndSelfTo<Kernel>().AsCached();
                 }
 
 #if !NOT_UNITY3D

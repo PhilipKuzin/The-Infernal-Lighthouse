@@ -3,7 +3,7 @@ using Zenject;
 public class Enemy : MonoBehaviour, IDamageable
 {
     private IEnemyTarget _target;
-    private int _health;
+    private int _health;  // удалить из проекта
     private float _speed;
     public void Initizlize (int health, float speed)
     {
@@ -15,7 +15,6 @@ public class Enemy : MonoBehaviour, IDamageable
     private void Construct (IEnemyTarget enemyTarget)
     {
         _target = enemyTarget;
-        //Debug.Log("маяк прокинулся во врага");
     }
 
     public void MoveTo (Vector3 position) => transform.position = position;
@@ -38,9 +37,9 @@ public class Enemy : MonoBehaviour, IDamageable
             return;
         else if (collision.gameObject.CompareTag("Player"))
         {
-            Player lighthouse = collision.gameObject.GetComponent<Player>();
-            lighthouse.TakeDamage();
-            Destroy(gameObject); // заменить на дестрой + частицы
+            Player player = collision.gameObject.GetComponent<Player>();
+            player.TakeDamage();
+            Destroy(gameObject);
         }
     }
 }

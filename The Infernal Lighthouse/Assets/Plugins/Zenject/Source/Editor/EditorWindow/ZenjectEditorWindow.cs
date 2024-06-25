@@ -67,8 +67,8 @@ namespace Zenject
 
             ZenjectManagersInstaller.Install(_container);
 
-            _container.Bind<Kernel>().AsSingle();
-            _container.Bind<GuiRenderableManager>().AsSingle();
+            _container.BindIntefacesAndSelfTo<Kernel>().AsSingle();
+            _container.BindIntefacesAndSelfTo<GuiRenderableManager>().AsSingle();
             _container.BindInstance(this);
 
             InstallBindings();

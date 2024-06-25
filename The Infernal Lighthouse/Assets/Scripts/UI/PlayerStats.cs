@@ -1,18 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private TMP_Text _healthCounter;
+
+    public void ChangeHealthView(int health)
     {
-        
+        _healthCounter.text = health.ToString();
+        Debug.Log("Статы изменены");
     }
 
-    // Update is called once per frame
-    void Update()
+    public void ResetView(int health)
     {
-        
+        _healthCounter.text = health.ToString();
     }
 }

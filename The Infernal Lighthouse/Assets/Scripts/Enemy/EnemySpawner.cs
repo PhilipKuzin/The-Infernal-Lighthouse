@@ -7,20 +7,23 @@ using Random = UnityEngine.Random;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [SerializeField] private float _spawnCooldown;
     [SerializeField] private List<Transform> _spawnPoints;
-    private EnemyFactory _enemyFactory;
 
+    private EnemyFactory _enemyFactory;
     private Coroutine _spawnCoroutine;
+    private EnemyType _typeByLevel;
+
+    private int _level;
+    private float _spawnCooldown; // изменено 25.06!
 
     [Inject]
-    private void Construct (EnemyFactory enemyFactory)
+    private void Construct(EnemyFactory enemyFactory)
     {
         _enemyFactory = enemyFactory;
-       // Debug.Log("‘абрика прокинута в спавнер");
+        // Debug.Log("‘абрика прокинута в спавнер");
     }
 
-    public void StartWork ()
+    public void StartWork()
     {
         StopWork();
         _spawnCoroutine = StartCoroutine(SpawnCoroutine());
@@ -32,16 +35,51 @@ public class EnemySpawner : MonoBehaviour
             StopCoroutine(_spawnCoroutine);
     }
 
-    private IEnumerator SpawnCoroutine ()
+    private IEnumerator SpawnCoroutine()
     {
         while (true)
         {
-            EnemyType selectedType = (EnemyType)Random.Range(0, Enum.GetValues(typeof(EnemyType)).Length);
+            EnemyType selectedType = SetSpawnerModeBy(_level); // изменено 25.06!
             Enemy enemy = _enemyFactory.GetEnemy(selectedType);
             enemy.MoveTo(_spawnPoints[Random.Range(0, _spawnPoints.Count)].position);
-            yield return new  WaitForSeconds (_spawnCooldown);
+            yield return new WaitForSeconds(_spawnCooldown);
         }
     }
 
+    public EnemyType SetSpawnerModeBy(int level)  // добавлено 25.06!
+    {
+        switch (level)
+        {
+            case 0:
+                _typeByLevel = EnemyType.RedEnemy;
+                _spawnCooldown = 4;
+                Debug.Log("”–ќ¬≈Ќ№ 0");
+                return _typeByLevel;
+            case 1:
+                _typeByLevel = EnemyType.RedEnemy;
+                _spawnCooldown = 2.5f;
+                Debug.Log("”–ќ¬≈Ќ№ 1");
+                return _typeByLevel;
+            case 2:
+                _typeByLevel = (EnemyType)Random.Range(0, 2);
+                _spawnCooldown = 2;
+                Debug.Log("”–ќ¬≈Ќ№ 2");
+                return _typeByLevel;
+            case 3:
+                _typeByLevel = (EnemyType)Random.Range(0, 3);
+                _spawnCooldown = 1;
+                Debug.Log("”–ќ¬≈Ќ№ 3");
+                return _typeByLevel;
+            default:
+                _typeByLevel = (EnemyType)Random.Range(1, 3);
+                _spawnCooldown = 0.8f;
+                return _typeByLevel;
+        }
+    }
+
+    public void SetLevel(int level)
+    {
+        _level = level;
+    }
     // сделать паблик метод дл€ установки нужного enemyType selectedType в зависимости от "опыта" игрока (количества убитых врагов) 
 }

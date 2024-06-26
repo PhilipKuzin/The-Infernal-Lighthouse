@@ -6,17 +6,24 @@ public class PlayerStatsMediator : IDisposable
 {
     private Player _player;
     private PlayerStats _playerStats;
+    private Level _level; // добавлено 25.06!
 
-    // используем этот медиатор чтобы отслеживать количество фрагов игрока и устанавливать тип enemyType selectedType через level (прокидываем сюда Level) 
-    
-    private PlayerStatsMediator (Player player, PlayerStats playerStats)
+    private PlayerStatsMediator (Player player, PlayerStats playerStats, Level level) 
     {
         Debug.Log("Создан медиатор playerStats!");
         _player = player;
         _playerStats = playerStats;
+        _level = level;              // добавлено 25.06!
 
         _player.OnHealthChanged += ChangeHealthView;
         _player.OnPlayerReborn += ResetHealthView;
+        _player.OnPlayerLevelChanged += IncreaseLevel;
+    }
+
+    private void IncreaseLevel() // добавлено 25.06!
+    {
+        _level.Increase();
+        // добавить анимацию нового уровня на экране? 
     }
 
     private void ResetHealthView()

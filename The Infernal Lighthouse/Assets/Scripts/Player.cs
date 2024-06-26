@@ -8,15 +8,15 @@ public class Player : MonoBehaviour, IDamageable, IEnemyTarget
     public event Action OnHealthChanged;
     public event Action OnDead;
     public event Action OnPlayerReborn;
-    // добавляем событие изменения количества фрагов игрока (каждые 10 ?) 
-    // добавляем счетчик фрагов 
+    public event Action OnPlayerLevelChanged; // добавлено 25.06!
 
     private RaycastAttak _raycastAttack;
     private MovementHandler _movementHandler;
 
     private const int HealthReduceValue = 10;
-    private float _moveSpeed = 10;  // в качестве перка увеличиваем мув спид ОБДУМАТЬ РЕАЛИЗАЦИЮ
+    private float _moveSpeed = 5;  // в качестве перка увеличиваем мув спид ОБДУМАТЬ РЕАЛИЗАЦИЮ
     private int _currentHealth;
+    private int _fragsCounter;     // добавлено 25.06! счетчик фрагов
 
     public Vector3 Position => transform.position;
     public int MaxHealth => 100;
@@ -26,9 +26,22 @@ public class Player : MonoBehaviour, IDamageable, IEnemyTarget
         private set { _currentHealth = value; }
     }
 
+    public int FragsCounter    // добавлено 25.06! свойство счетчика фрагов
+    {
+        get { return _fragsCounter; }
+        private set { _fragsCounter = value; }
+    }
+
     private void Start()
     {
         Reborn();
+    }
+
+    private void OnDisable()
+    {
+        _movementHandler.OnMove -= LookOnCursor;
+        _movementHandler.OnClicked -= ClickAction;
+        _raycastAttack.OnEnemyKilled -= IncreaseFragsСount; // добавлено 25.06!
     }
 
     [Inject]
@@ -38,6 +51,18 @@ public class Player : MonoBehaviour, IDamageable, IEnemyTarget
         _raycastAttack = raycastAttak;
         _movementHandler.OnMove += LookOnCursor;
         _movementHandler.OnClicked += ClickAction;
+        _raycastAttack.OnEnemyKilled += IncreaseFragsСount;  // добавлено 25.06! подписка на событие фрага
+    }
+
+    private void IncreaseFragsСount()  // добавлено 25.06! увеличение счетчика фрагов и проверка на левелАп СДЕЛАТЬ НОРМАЛЬНО
+    {
+        FragsCounter++;
+
+        if (FragsCounter % 10 == 0)
+        {
+            OnPlayerLevelChanged?.Invoke();
+            Debug.Log("LEVEL UP");
+        }
     }
 
     public void Reborn()
@@ -48,7 +73,6 @@ public class Player : MonoBehaviour, IDamageable, IEnemyTarget
 
     public void TakeDamage()
     {
-
         if (CurrentHealth >= HealthReduceValue)
         {
             CurrentHealth -= HealthReduceValue;

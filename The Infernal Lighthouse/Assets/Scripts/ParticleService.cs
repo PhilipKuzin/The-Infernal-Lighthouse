@@ -6,6 +6,7 @@ public class ParticleService : MonoBehaviour
 {
     [SerializeField] private ParticleSystem _hitParticles;
     [SerializeField] private ParticleSystem _missParticles;
+    [SerializeField] private ParticleSystem _shotParticles;
 
     private float _hitEffectDestroyDelay = 2;
 

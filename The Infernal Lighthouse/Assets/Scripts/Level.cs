@@ -1,22 +1,37 @@
-
 using System;
 using UnityEngine;
 
 public class Level : MonoBehaviour
 {
     [SerializeField] private EnemySpawner _spawner;
-    private int _levelNumber; // добавлено 25.06!
 
-    public void Increase()  // добавлено 25.06!
+    public event Action OnLevelLost;
+
+    private int _levelNumber; 
+
+    private void Awake()
+    {
+        Restart();
+    }
+
+    public void Restart()
+    {
+        _spawner.SetLevel(_levelNumber);
+        _spawner.SetLevelDefeated();
+        _spawner.StartWork();
+    }
+
+    public void Increase()
     {
         _levelNumber++;
         _spawner.SetLevel(_levelNumber);
         _spawner.StartWork();
     }
 
-    private void Awake()
+    public void LoseLevel()
     {
-        _spawner.SetLevel(_levelNumber);
-        _spawner.StartWork();
+        _spawner.SetLevelDefeated(); 
+        OnLevelLost?.Invoke();
     }
+
 }

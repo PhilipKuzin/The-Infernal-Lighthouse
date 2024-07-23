@@ -8,7 +8,7 @@ public class PlayerStats : MonoBehaviour
     public void ChangeHealthView(int health)
     {
         _healthCounter.text = health.ToString();
-        Debug.Log("Статы изменены");
+        //Debug.Log("Статы изменены");
     }
 
     public void ResetView(int health)

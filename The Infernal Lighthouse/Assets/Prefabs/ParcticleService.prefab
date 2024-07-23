@@ -46,3 +46,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _hitParticles: {fileID: 4330716673657107476, guid: ff1c6f20f1c7279418c8f592abcf42e9, type: 3}
   _missParticles: {fileID: 2593494112435895087, guid: 8b630f75fde3ac44d82c17fae783b740, type: 3}
+  _shotParticles: {fileID: 6489776252609501423, guid: d08c05331eb6b104e903e118e2bee2eb, type: 3}

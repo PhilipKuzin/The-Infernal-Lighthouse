@@ -1,18 +1,36 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using System;
 
-public class DefeatPanelMediator : MonoBehaviour
+public class DefeatPanelMediator : IDisposable 
 {
-    // Start is called before the first frame update
-    void Start()
+    private Level _level;
+    private DefeatPanel _defeatPanel;
+
+    public DefeatPanelMediator(Level level, DefeatPanel defeatPanel)
     {
-        
+        _level = level;
+        _defeatPanel = defeatPanel;
+
+        _level.OnLevelLost += ShowDefeatPanel;
+        _defeatPanel.OnClickRestartBtn += RestartLevel;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Dispose()
     {
-        
+        _level.OnLevelLost -= ShowDefeatPanel;
     }
+
+    private void RestartLevel()
+    {
+        _level.Restart();
+        _defeatPanel.HidePanel();
+    }
+
+    private void ShowDefeatPanel()
+    {
+        _defeatPanel.ShowPanel();
+    }
+
+
+
+ 
 }

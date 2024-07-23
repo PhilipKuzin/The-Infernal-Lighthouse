@@ -37,7 +37,7 @@ public class EnemySpawner : MonoBehaviour
 
     private IEnumerator SpawnCoroutine()
     {
-        while (true)
+        while (true)  
         {
             EnemyType selectedType = SetSpawnerModeBy(_level); // изменено 25.06!
             Enemy enemy = _enemyFactory.GetEnemy(selectedType);
@@ -81,5 +81,9 @@ public class EnemySpawner : MonoBehaviour
     {
         _level = level;
     }
-    // сделать паблик метод для установки нужного enemyType selectedType в зависимости от "опыта" игрока (количества убитых врагов) 
+
+    public void SetLevelDefeated()
+    {
+        StopWork(); // 22 07
+    }
 }

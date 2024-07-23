@@ -14,12 +14,20 @@ public class Player : MonoBehaviour, IDamageable, IEnemyTarget
     private MovementHandler _movementHandler;
 
     private const int HealthReduceValue = 10;
+
     private float _moveSpeed = 5;  // в качестве перка увеличиваем мув спид ОБДУМАТЬ РЕАЛИЗАЦИЮ
     private int _currentHealth;
     private int _fragsCounter;     // добавлено 25.06! счетчик фрагов
+    private bool _isActive;
 
     public Vector3 Position => transform.position;
-    public int MaxHealth => 100;
+    public int MaxHealth => 20; 
+
+    public bool IsActive
+    {
+        get { return _isActive; }
+    }
+
     public int CurrentHealth
     {
         get { return _currentHealth; }
@@ -68,6 +76,7 @@ public class Player : MonoBehaviour, IDamageable, IEnemyTarget
     public void Reborn()
     {
         CurrentHealth = MaxHealth;
+        _isActive = true;
         OnPlayerReborn?.Invoke();
     }
 
@@ -80,6 +89,8 @@ public class Player : MonoBehaviour, IDamageable, IEnemyTarget
 
             if (CurrentHealth <= 0)
             {
+                gameObject.SetActive(false);
+                _isActive = false;
                 OnHealthChanged?.Invoke();
                 OnDead?.Invoke();
             }

@@ -5,10 +5,24 @@ public class Enemy : MonoBehaviour, IDamageable
     private IEnemyTarget _target;
     private int _health;  // удалить из проекта
     private float _speed;
-    public void Initizlize (int health, float speed)
+    private float _speedReduceMultiplier = 0.05f;
+    private bool _flag = false;
+    private Vector3 _direction;
+
+    public void Initizlize(int health, float speed)
     {
         _health = health;
         _speed = speed;
+        _flag = false;
+    }
+
+    public void MoveTo(Vector3 position) => transform.position = position;
+
+    public void StopMove ()
+    {
+        if (_speed > 0)
+            _speed -= _speedReduceMultiplier;
+        Debug.Log("Уменьшилось на 0.01");
     }
 
     [Inject]
@@ -16,8 +30,6 @@ public class Enemy : MonoBehaviour, IDamageable
     {
         _target = enemyTarget;
     }
-
-    public void MoveTo (Vector3 position) => transform.position = position;
 
     public void TakeDamage()
     {
@@ -27,8 +39,15 @@ public class Enemy : MonoBehaviour, IDamageable
 
     private void Update ()
     {
-        Vector3 direction = _target.Position - transform.position;
-        transform.Translate(direction.normalized * _speed * Time.deltaTime, Space.World);
+        _direction = _target.Position - transform.position;
+        transform.Translate(_direction.normalized * _speed * Time.deltaTime, Space.World);
+
+        if (_target.IsActive == false)
+        {
+            Debug.Log("Стоп МУВ отрабатывает, таргет фолс");
+            StopMove();
+        }
+
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -37,7 +56,7 @@ public class Enemy : MonoBehaviour, IDamageable
             return;
         else if (collision.gameObject.CompareTag("Player"))
         {
-            Player player = collision.gameObject.GetComponent<Player>();
+            IDamageable player = collision.gameObject.GetComponent<IDamageable>();
             player.TakeDamage();
             Destroy(gameObject);
         }

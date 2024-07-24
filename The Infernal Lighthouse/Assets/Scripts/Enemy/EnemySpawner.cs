@@ -42,6 +42,7 @@ public class EnemySpawner : MonoBehaviour
             EnemyType selectedType = SetSpawnerModeBy(_level); // изменено 25.06!
             Enemy enemy = _enemyFactory.GetEnemy(selectedType);
             enemy.MoveTo(_spawnPoints[Random.Range(0, _spawnPoints.Count)].position);
+            enemy.RotateTo();
             yield return new WaitForSeconds(_spawnCooldown);
         }
     }

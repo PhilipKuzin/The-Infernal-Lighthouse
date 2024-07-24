@@ -43,6 +43,11 @@ public class Enemy : MonoBehaviour, IDamageable
 
     public void MoveTo(Vector3 position) => transform.position = position;
 
+    public void RotateTo ()
+    {
+        transform.LookAt(_target.Position);
+    }
+
     public void TakeDamage()
     {
         Debug.Log("Damage applied!");

@@ -5,7 +5,9 @@ using Zenject;
 
 public class EnemyFactory
 {
+
     private const string ConfigsPath = "Enemies";
+    private const string ImpConfig = "ImpConfig";
     private const string RedEnemyConfig = "RedEnemy";
     private const string BlueEnemyConfig = "BlueEnemy";
     private const string GreenEnemyConfig = "GreenEnemy";
@@ -21,7 +23,6 @@ public class EnemyFactory
 
     public Enemy GetEnemy(EnemyType enemyType)
     {
-        //Debug.Log("Запустился гет энеми");
         EnemyConfig config = GetConfigBy(enemyType);
         Enemy instanse = _container.InstantiatePrefabForComponent<Enemy>(config.Prefab);
         instanse.Initizlize(config.Health, config.Speed);
@@ -47,7 +48,7 @@ public class EnemyFactory
 
     private void Load ()
     {
-        _redEnemy = Resources.Load<EnemyConfig>(Path.Combine(ConfigsPath, RedEnemyConfig)); 
+        _redEnemy = Resources.Load<EnemyConfig>(Path.Combine(ConfigsPath, ImpConfig)); 
         _greenEnemy = Resources.Load<EnemyConfig>(Path.Combine(ConfigsPath, GreenEnemyConfig));
         _blueEnemy = Resources.Load<EnemyConfig>(Path.Combine(ConfigsPath, BlueEnemyConfig));
     }

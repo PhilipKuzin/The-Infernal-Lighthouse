@@ -24,12 +24,12 @@ public class RaycastAttak
             if (hitCollider.TryGetComponent(out IDamageable enemy)) // партиклы на ма€ке по€вл€ютс€ из-за того что ма€к тоже IDamageable (ѕќƒ”ћј“№!) проверка IS ? 
             {
                 OnEnemyKilled?.Invoke();                            // добавлено 25.06! вызов событи€ убийства врага! 
-                _particleService.SpawnParticleEffectOnHit(hitInfo);
+                _particleService.SpawnParticleEffectExplosion(hitInfo);
                 enemy.TakeDamage();
             }
             else
             {
-                _particleService.SpawnParticleEffectOnMiss(hitInfo);
+                _particleService.SpawnParticleEffectMiss(hitInfo);
             }
         }
     }

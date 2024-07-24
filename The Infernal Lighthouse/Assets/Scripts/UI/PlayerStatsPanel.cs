@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-public class PlayerStats : MonoBehaviour
+public class PlayerStatsPanel : MonoBehaviour
 {
     [SerializeField] private TMP_Text _healthCounter;
 

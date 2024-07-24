@@ -3,51 +3,18 @@ using Zenject;
 public class Enemy : MonoBehaviour, IDamageable
 {
     private IEnemyTarget _target;
+    private Vector3 _direction;
     private int _health;  // удалить из проекта
     private float _speed;
     private float _speedReduceMultiplier = 0.05f;
-    private bool _flag = false;
-    private Vector3 _direction;
 
-    public void Initizlize(int health, float speed)
-    {
-        _health = health;
-        _speed = speed;
-        _flag = false;
-    }
-
-    public void MoveTo(Vector3 position) => transform.position = position;
-
-    public void StopMove ()
-    {
-        if (_speed > 0)
-            _speed -= _speedReduceMultiplier;
-        Debug.Log("Уменьшилось на 0.01");
-    }
-
-    [Inject]
-    private void Construct (IEnemyTarget enemyTarget)
-    {
-        _target = enemyTarget;
-    }
-
-    public void TakeDamage()
-    {
-        Debug.Log("Damage applied!");
-        Destroy(gameObject);    
-    }
-
-    private void Update ()
+    private void Update()
     {
         _direction = _target.Position - transform.position;
         transform.Translate(_direction.normalized * _speed * Time.deltaTime, Space.World);
 
         if (_target.IsActive == false)
-        {
-            Debug.Log("Стоп МУВ отрабатывает, таргет фолс");
-            StopMove();
-        }
-
+            StopMoveProcess();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -61,4 +28,33 @@ public class Enemy : MonoBehaviour, IDamageable
             Destroy(gameObject);
         }
     }
+
+    [Inject]
+    private void Construct(IEnemyTarget enemyTarget)
+    {
+        _target = enemyTarget;
+    }
+
+    public void Initizlize(int health, float speed)
+    {
+        _health = health;
+        _speed = speed;
+    }
+
+    public void MoveTo(Vector3 position) => transform.position = position;
+
+    public void TakeDamage()
+    {
+        Debug.Log("Damage applied!");
+        Destroy(gameObject);
+    }
+
+    public void StopMoveProcess()
+    {
+        if (_speed > 0)
+            _speed -= _speedReduceMultiplier;
+        else if (_speed <= 0)
+            _speed = 0;
+    }
+
 }

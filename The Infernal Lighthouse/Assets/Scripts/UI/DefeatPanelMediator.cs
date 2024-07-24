@@ -29,8 +29,4 @@ public class DefeatPanelMediator : IDisposable
     {
         _defeatPanel.ShowPanel();
     }
-
-
-
- 
 }

@@ -29,7 +29,7 @@ public class EnemySpawner : MonoBehaviour
         _spawnCoroutine = StartCoroutine(SpawnCoroutine());
     }
 
-    public void StopWork()
+    private void StopWork()
     {
         if (_spawnCoroutine != null)
             StopCoroutine(_spawnCoroutine);

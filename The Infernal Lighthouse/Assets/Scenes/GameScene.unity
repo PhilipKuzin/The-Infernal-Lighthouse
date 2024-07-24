@@ -1707,7 +1707,7 @@ GameObject:
   - component: {fileID: 1637046226}
   - component: {fileID: 1637046225}
   m_Layer: 5
-  m_Name: PlayerStats
+  m_Name: PlayerStatsPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

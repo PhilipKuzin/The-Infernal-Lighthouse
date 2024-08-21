@@ -1,12 +1,16 @@
+using System;
 using UnityEngine;
 using Zenject;
 public class Enemy : MonoBehaviour, IDamageable
 {
+    public event Action OnEnemyStoped;
+
     private IEnemyTarget _target;
     private Vector3 _direction;
+
     private int _health;  // удалить из проекта
     private float _speed;
-    private float _speedReduceMultiplier = 0.05f;
+    private float _speedReduceMultiplier = 0.25f;
 
     private void Update()
     {
@@ -59,7 +63,10 @@ public class Enemy : MonoBehaviour, IDamageable
         if (_speed > 0)
             _speed -= _speedReduceMultiplier;
         else if (_speed <= 0)
+        {
             _speed = 0;
+            OnEnemyStoped?.Invoke();
+        }
     }
 
 }

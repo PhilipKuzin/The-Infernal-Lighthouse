@@ -1,12 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using Zenject;
 
 public class EnemySpawnerInstaller : MonoInstaller
 {
     public override void InstallBindings()
     {
-        Container.BindIntefacesAndSelfTo<EnemyFactory>().AsSingle();
+        BindFactory();
+    }
+
+
+    private void BindFactory()
+    {
+        Container.BindIntefacesAndSelfTo<EnemyFactory>().AsSingle(); ;
     }
 }

@@ -24,10 +24,15 @@ public class EnemyFactory
     public Enemy GetEnemy(EnemyType enemyType)
     {
         EnemyConfig config = GetConfigBy(enemyType);
-        Enemy instanse = _container.InstantiatePrefabForComponent<Enemy>(config.Prefab);
-        instanse.Initizlize(config.Health, config.Speed);
-        return instanse;
+        Enemy instanñe = _container.InstantiatePrefabForComponent<Enemy>(config.Prefab);
+
+        instanñe.Initizlize(config.Health, config.Speed);
+
+        EnemyVisual visual = instanñe.GetComponent<EnemyVisual>();
+        EnemyMediator mediator = new EnemyMediator (instanñe, visual);
+        return instanñe;
     }
+
 
     private EnemyConfig GetConfigBy(EnemyType enemyType)
     {

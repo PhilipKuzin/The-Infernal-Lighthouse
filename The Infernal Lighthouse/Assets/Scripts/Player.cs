@@ -17,7 +17,7 @@ public class Player : MonoBehaviour, IDamageable, IEnemyTarget
 
     private float _moveSpeed = 5;  // в качестве перка увеличиваем мув спид ОБДУМАТЬ РЕАЛИЗАЦИЮ
     private int _currentHealth;
-    private int _fragsCounter;     // добавлено 25.06! счетчик фрагов
+    private int _fragsCounter;     
     private bool _isActive;
 
     public Vector3 Position => transform.position;
@@ -34,7 +34,7 @@ public class Player : MonoBehaviour, IDamageable, IEnemyTarget
         private set { _currentHealth = value; }
     }
 
-    public int FragsCounter    // добавлено 25.06! свойство счетчика фрагов
+    public int FragsCounter    
     {
         get { return _fragsCounter; }
         private set { _fragsCounter = value; }
@@ -59,7 +59,7 @@ public class Player : MonoBehaviour, IDamageable, IEnemyTarget
         _raycastAttack = raycastAttak;
         _movementHandler.OnMove += LookOnCursor;
         _movementHandler.OnClicked += ClickAction;
-        _raycastAttack.OnEnemyKilled += IncreaseFragsСount;  // добавлено 25.06! подписка на событие фрага
+        _raycastAttack.OnEnemyKilled += IncreaseFragsСount;  
     }
 
     private void IncreaseFragsСount()  // добавлено 25.06! увеличение счетчика фрагов и проверка на левелАп СДЕЛАТЬ НОРМАЛЬНО

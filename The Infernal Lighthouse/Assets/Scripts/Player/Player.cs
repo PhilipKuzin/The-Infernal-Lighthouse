@@ -8,14 +8,14 @@ public class Player : MonoBehaviour, IDamageable, IEnemyTarget
     public event Action OnHealthChanged;
     public event Action OnDead;
     public event Action OnPlayerReborn;
-    public event Action OnPlayerLevelChanged; // добавлено 25.06!
+    public event Action OnPlayerLevelChanged; 
 
     private RaycastAttak _raycastAttack;
     private MovementHandler _movementHandler;
 
     private const int HealthReduceValue = 10;
 
-    private float _moveSpeed = 5;  // в качестве перка увеличиваем мув спид ОБДУМАТЬ РЕАЛИЗАЦИЮ
+    private float _moveSpeed = 5;  
     private int _currentHealth;
     private int _fragsCounter;     
     private bool _isActive;
@@ -49,7 +49,7 @@ public class Player : MonoBehaviour, IDamageable, IEnemyTarget
     {
         _movementHandler.OnMove -= LookOnCursor;
         _movementHandler.OnClicked -= ClickAction;
-        _raycastAttack.OnEnemyKilled -= IncreaseFragsСount; // добавлено 25.06!
+        _raycastAttack.OnEnemyKilled -= IncreaseFragsСount; 
     }
 
     [Inject]
@@ -62,7 +62,8 @@ public class Player : MonoBehaviour, IDamageable, IEnemyTarget
         _raycastAttack.OnEnemyKilled += IncreaseFragsСount;  
     }
 
-    private void IncreaseFragsСount()  // добавлено 25.06! увеличение счетчика фрагов и проверка на левелАп СДЕЛАТЬ НОРМАЛЬНО
+    private void IncreaseFragsСount(RaycastHit hitInfo)  // добавлено 25.06! увеличение счетчика фрагов и проверка на левелАп СДЕЛАТЬ НОРМАЛЬНО
+                                                         // передается ненужный параметр, подумать как исправить
     {
         FragsCounter++;
 

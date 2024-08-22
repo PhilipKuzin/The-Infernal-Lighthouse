@@ -12,6 +12,7 @@ public class PlayerInstaller : MonoInstaller
         BindParticleService();
         BindRaycastAttack();
         BindPlayer();
+        BindParticleServiceMediator();
     }
 
     private void BindParticleService()
@@ -22,12 +23,17 @@ public class PlayerInstaller : MonoInstaller
 
     private void BindRaycastAttack()
     {
-        Container.BindIntefacesAndSelfTo<RaycastAttak>().AsSingle();
+        Container.BindIntefacesAndSelfTo<RaycastAttak>().AsSingle().NonLazy();  // 22.08
     }
 
     private void BindPlayer()
     {
         Player player = Container.InstantiatePrefabForComponent<Player>(_playerPrefab, _playerSpawnPoint.position, Quaternion.identity, null);
         Container.BindInterfacesAndSelfTo<Player>().FromInstance(player).AsSingle();
+    }
+
+    private void BindParticleServiceMediator()
+    {
+        Container.BindInterfacesAndSelfTo<ParticleServiceMediator>().AsSingle();
     }
 }

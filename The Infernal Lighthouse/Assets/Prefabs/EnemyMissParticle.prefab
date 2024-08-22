@@ -4898,7 +4898,7 @@ GameObject:
   - component: {fileID: 2593494112435895087}
   - component: {fileID: 4425316169952823785}
   m_Layer: 0
-  m_Name: MissParticle
+  m_Name: EnemyMissParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

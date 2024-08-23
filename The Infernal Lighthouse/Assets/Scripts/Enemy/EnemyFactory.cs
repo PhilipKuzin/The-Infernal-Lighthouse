@@ -5,14 +5,12 @@ using Zenject;
 
 public class EnemyFactory
 {
-
     private const string ConfigsPath = "Enemies";
-    private const string ImpConfig = "ImpConfig";
-    private const string RedEnemyConfig = "RedEnemy";
+    private const string ImpEnemyConfig = "ImpConfig";
     private const string BlueEnemyConfig = "BlueEnemy";
-    private const string GreenEnemyConfig = "GreenEnemy";
+    private const string FlameEnemyConfig = "FlameConfig";
 
-    private EnemyConfig _redEnemy, _greenEnemy, _blueEnemy;
+    private EnemyConfig _impEnemy, _flameEnemy, _blueEnemy;
     private DiContainer _container;
 
     public EnemyFactory(DiContainer container)
@@ -39,10 +37,10 @@ public class EnemyFactory
         switch (enemyType)
         {
             case EnemyType.RedEnemy:
-                return _redEnemy;
+                return _impEnemy;
 
             case EnemyType.GreenEnemy:
-                return _greenEnemy;
+                return _flameEnemy;
 
             case EnemyType.BlueEnemy:
                 return _blueEnemy;
@@ -53,8 +51,8 @@ public class EnemyFactory
 
     private void Load ()
     {
-        _redEnemy = Resources.Load<EnemyConfig>(Path.Combine(ConfigsPath, ImpConfig)); 
-        _greenEnemy = Resources.Load<EnemyConfig>(Path.Combine(ConfigsPath, GreenEnemyConfig));
+        _impEnemy = Resources.Load<EnemyConfig>(Path.Combine(ConfigsPath, ImpEnemyConfig)); 
+        _flameEnemy = Resources.Load<EnemyConfig>(Path.Combine(ConfigsPath, FlameEnemyConfig));
         _blueEnemy = Resources.Load<EnemyConfig>(Path.Combine(ConfigsPath, BlueEnemyConfig));
     }
 }

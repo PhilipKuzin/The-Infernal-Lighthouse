@@ -1,6 +1,8 @@
 using System;
 using UnityEngine;
 using Zenject;
+
+[RequireComponent(typeof(CapsuleCollider), typeof(Rigidbody))]
 public class Enemy : MonoBehaviour, IDamageable
 {
     public event Action OnEnemyStoped;

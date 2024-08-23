@@ -86,7 +86,6 @@ public class Player : MonoBehaviour, IDamageable, IEnemyTarget
         if (CurrentHealth >= HealthReduceValue)
         {
             CurrentHealth -= HealthReduceValue;
-            OnHealthChanged?.Invoke();
 
             if (CurrentHealth <= 0)
             {
@@ -94,7 +93,10 @@ public class Player : MonoBehaviour, IDamageable, IEnemyTarget
                 _isActive = false;
                 OnHealthChanged?.Invoke();
                 OnDead?.Invoke();
+                return;
             }
+            
+            OnHealthChanged?.Invoke();
         }
     }
 

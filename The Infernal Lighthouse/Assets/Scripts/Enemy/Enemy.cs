@@ -23,9 +23,7 @@ public class Enemy : MonoBehaviour, IDamageable
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Floor"))
-            return;
-        else if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player"))
         {
             IDamageable player = collision.gameObject.GetComponent<IDamageable>();
             player.TakeDamage();
@@ -47,7 +45,7 @@ public class Enemy : MonoBehaviour, IDamageable
 
     public void MoveTo(Vector3 position) => transform.position = position;
 
-    public void RotateTo ()
+    public void RotateTo()
     {
         transform.LookAt(_target.Position);
     }

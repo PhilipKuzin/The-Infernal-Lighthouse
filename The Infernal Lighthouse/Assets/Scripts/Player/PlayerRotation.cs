@@ -1,9 +1,23 @@
 using UnityEngine;
+using DG.Tweening;
 
 public class PlayerRotation : MonoBehaviour
 {
-    private void Update()
+    private void Start()
     {
-        transform.Rotate(new Vector3(0, 1, 0), Space.Self);
+        Rotate();
     }
+
+    private void Rotate()
+    {
+        transform.DORotate(new Vector3(0, 1, 0) * 360, 7, RotateMode.FastBeyond360)
+            .SetEase(Ease.Linear)
+            .OnComplete(Rotate);
+    }
+
+    private void OnDestroy()
+    {
+        DOTween.Kill(transform);
+    }
+
 }

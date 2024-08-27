@@ -54,12 +54,12 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Exposure: 1.13
+    - _Exposure: 1.02
     - _ImageType: 0
     - _Layout: 0
     - _Mapping: 0
     - _MirrorOnBack: 0
-    - _Rotation: 187
+    - _Rotation: 170
     m_Colors:
     - _Tint: {r: 0.4339623, g: 0.4339623, b: 0.4339623, a: 0.5254902}
   m_BuildTextureStacks: []

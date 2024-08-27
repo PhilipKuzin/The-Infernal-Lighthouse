@@ -1,5 +1,5 @@
 using System;
-using System.Threading.Tasks;
+using System.Collections;
 using UnityEngine;
 
 public class RaycastAttak
@@ -7,16 +7,16 @@ public class RaycastAttak
     public event Action<RaycastHit> OnEnemyKilled;
     public event Action<RaycastHit> OnMiss;
 
-    private int shotCount = 0; // Счетчик выстрелов
-    private bool isReloading = false; // Флаг перезарядки
+    private int _maxRound = 5;
+    private int _shotsCount;
+    private bool _isReloading = false; 
 
-    public async void PerformAttack(Vector3 position) // Изменяем метод на async
+    public void PerformAttack(Vector3 position)
     {
-        if (isReloading)
-        {
-            Debug.Log("Перезарядка... Подождите.");
-            return; // Если идет перезарядка, выходим из метода
-        }
+        if (_isReloading != false)
+            return;
+
+        _shotsCount++;
 
         Ray ray = Camera.main.ScreenPointToRay(position);
 
@@ -35,24 +35,20 @@ public class RaycastAttak
             }
         }
 
-        shotCount++;
-
-        // Проверяем, нужно ли начинать перезарядку
-        if (shotCount >= 5)
+        if (_shotsCount >= _maxRound)
         {
-            await Reload(); // Ждем завершения перезарядки
-            shotCount = 0; // Сбрасываем счетчик выстрелов после перезарядки
+            CoroutineRunner.StartRoutine(ReloadCoroutine());
         }
     }
 
-    private async Task Reload() // Метод для перезарядки
+    private IEnumerator ReloadCoroutine()
     {
-        isReloading = true; // Устанавливаем флаг перезарядки
-        Debug.Log("Начинаем перезарядку...");
-
-        await Task.Delay(3000); // Ждем 3 секунды
-
-        Debug.Log("Перезарядка завершена.");
-        isReloading = false; // Сбрасываем флаг перезарядки
+        _isReloading = true;
+        Debug.Log("Перезарядка в процессе!");
+        yield return new WaitForSeconds(3f);
+        _shotsCount = 0;
+        _isReloading = false;
+        Debug.Log("Перезарядка завершена!");
     }
+
 }

@@ -16,13 +16,13 @@ public class Player : MonoBehaviour, IDamageable, IEnemyTarget
     private float _moveSpeed = 5;
     private int _currentHealth;
     private int _damage = 1; // ÈÑÏĞÀÂÈÒÜ
-    private int _fragsCounter;     
+    private int _fragsCounter;
     private bool _isActive;
 
 
     public Vector3 Position => transform.position;
     public int MaxHealth => 100;
-    public float HealthNormalized => (float) _currentHealth / MaxHealth;
+    public float HealthNormalized => (float)_currentHealth / MaxHealth;
 
     public bool IsActive
     {
@@ -35,7 +35,7 @@ public class Player : MonoBehaviour, IDamageable, IEnemyTarget
         private set { _currentHealth = value; }
     }
 
-    public int FragsCounter    
+    public int FragsCounter
     {
         get { return _fragsCounter; }
         private set { _fragsCounter = value; }
@@ -50,7 +50,7 @@ public class Player : MonoBehaviour, IDamageable, IEnemyTarget
     {
         _movementHandler.OnMove -= LookOnCursor;
         _movementHandler.OnClicked -= ClickAction;
-        _raycastAttack.OnEnemyKilled -= IncreaseFragsÑount; 
+        _raycastAttack.OnEnemyKilled -= IncreaseFragsÑount;
     }
 
     [Inject]
@@ -60,7 +60,7 @@ public class Player : MonoBehaviour, IDamageable, IEnemyTarget
         _raycastAttack = raycastAttak;
         _movementHandler.OnMove += LookOnCursor;
         _movementHandler.OnClicked += ClickAction;
-        _raycastAttack.OnEnemyKilled += IncreaseFragsÑount;  
+        _raycastAttack.OnEnemyKilled += IncreaseFragsÑount;
     }
 
     private void IncreaseFragsÑount(RaycastHit hitInfo)  // äîáàâëåíî 25.06! óâåëè÷åíèå ñ÷åò÷èêà ôğàãîâ è ïğîâåğêà íà ëåâåëÀï ÑÄÅËÀÒÜ ÍÎĞÌÀËÜÍÎ
@@ -84,21 +84,18 @@ public class Player : MonoBehaviour, IDamageable, IEnemyTarget
 
     public void TakeDamage(int inputDamage)
     {
-        if (CurrentHealth >= inputDamage)
-        {
-            CurrentHealth -= inputDamage;
+        CurrentHealth -= inputDamage;
 
-            if (CurrentHealth <= 0)
-            {
-                gameObject.SetActive(false);
-                _isActive = false;
-                OnHealthChanged?.Invoke();
-                OnDead?.Invoke();
-                return;
-            }
-            
+        if (CurrentHealth <= 0)
+        {
+            gameObject.SetActive(false);
+            _isActive = false;
             OnHealthChanged?.Invoke();
+            OnDead?.Invoke();
+            return;
         }
+
+        OnHealthChanged?.Invoke();
     }
 
     private void ClickAction(Vector3 position)

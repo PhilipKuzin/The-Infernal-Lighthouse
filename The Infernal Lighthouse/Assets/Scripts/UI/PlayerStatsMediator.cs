@@ -9,7 +9,6 @@ public class PlayerStatsMediator : IDisposable
 
     private PlayerStatsMediator (Player player, UIWidgetLifeBar uiWidgetLifeBar, Level level) 
     {
-        Debug.Log("Создан медиатор playerStats!");
         _player = player;
         _uiWidgetlifeBar = uiWidgetLifeBar;
         _level = level;              
@@ -33,7 +32,7 @@ public class PlayerStatsMediator : IDisposable
 
     private void ResetHealthView()
     {
-        _uiWidgetlifeBar.ResetView(_player.MaxHealth);
+        _uiWidgetlifeBar.ResetView(_player.HealthNormalized);
     }
 
     private void ChangeHealthView()
@@ -45,6 +44,7 @@ public class PlayerStatsMediator : IDisposable
     {
         _player.OnHealthChanged -= ChangeHealthView;
         _player.OnPlayerReborn -= ResetHealthView;
+        _player.OnPlayerLevelChanged -= IncreaseLevel;
         _player.OnDead -= LoseLevel; 
     }
 }

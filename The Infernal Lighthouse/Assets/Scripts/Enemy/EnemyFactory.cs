@@ -24,7 +24,7 @@ public class EnemyFactory
         EnemyConfig config = GetConfigBy(enemyType);
         Enemy instanñe = _container.InstantiatePrefabForComponent<Enemy>(config.Prefab);
 
-        instanñe.Initizlize(config.Health, config.Speed);
+        instanñe.Initizlize(config.Health, config.Speed, config.Damage);
 
         EnemyVisual visual = instanñe.GetComponent<EnemyVisual>();
         EnemyMediator mediator = new EnemyMediator (instanñe, visual);

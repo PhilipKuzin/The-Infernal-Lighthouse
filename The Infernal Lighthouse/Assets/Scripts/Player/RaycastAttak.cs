@@ -11,7 +11,7 @@ public class RaycastAttak
     private int _shotsCount;
     private bool _isReloading = false; 
 
-    public void PerformAttack(Vector3 position)
+    public void PerformAttack(Vector3 position, int damage)
     {
         if (_isReloading != false)
             return;
@@ -27,7 +27,7 @@ public class RaycastAttak
             if (hitCollider.TryGetComponent(out IDamageable entity) && entity is Enemy realEnemy)
             {
                 OnEnemyKilled?.Invoke(hitInfo);
-                realEnemy.TakeDamage();
+                realEnemy.TakeDamage(damage);
             }
             else
             {

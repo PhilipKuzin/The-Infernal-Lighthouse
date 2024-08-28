@@ -10,7 +10,10 @@ public class Enemy : MonoBehaviour, IDamageable
     private IEnemyTarget _target;
     private Vector3 _direction;
 
-    private int _health;  // удалить из проекта
+
+    private int _damage;
+    private int _health;
+    private int _currentHealth;
     private float _speed;
     private float _speedReduceMultiplier = 0.25f;
 
@@ -28,7 +31,7 @@ public class Enemy : MonoBehaviour, IDamageable
         if (collision.gameObject.CompareTag("Player"))
         {
             IDamageable player = collision.gameObject.GetComponent<IDamageable>();
-            player.TakeDamage();
+            player.TakeDamage(_damage);
             Destroy(gameObject);
         }
     }
@@ -39,10 +42,13 @@ public class Enemy : MonoBehaviour, IDamageable
         _target = enemyTarget;
     }
 
-    public void Initizlize(int health, float speed)
+    public void Initizlize(int health, float speed, int damage)
     {
         _health = health;
         _speed = speed;
+        _damage = damage;
+
+        _currentHealth = health;
     }
 
     public void MoveTo(Vector3 position) => transform.position = position;
@@ -52,10 +58,13 @@ public class Enemy : MonoBehaviour, IDamageable
         transform.LookAt(_target.Position);
     }
 
-    public void TakeDamage()
+    public void TakeDamage(int damage)
     {
         Debug.Log("Damage applied!");
-        Destroy(gameObject);
+        _currentHealth -= damage;
+
+        if ( _currentHealth <= 0 )
+            Destroy(gameObject);
     }
 
     public void StopMoveProcess()

@@ -8,21 +8,20 @@ public class Player : MonoBehaviour, IDamageable, IEnemyTarget
     public event Action OnHealthChanged;
     public event Action OnDead;
     public event Action OnPlayerReborn;
-    public event Action OnPlayerLevelChanged; 
+    public event Action OnPlayerLevelChanged;
 
     private RaycastAttak _raycastAttack;
     private MovementHandler _movementHandler;
 
-    private const int HealthReduceValue = 10;
-
-    private float _moveSpeed = 5;  
+    private float _moveSpeed = 5;
     private int _currentHealth;
+    private int _damage = 1; // ÈÑÏÐÀÂÈÒÜ
     private int _fragsCounter;     
     private bool _isActive;
 
 
     public Vector3 Position => transform.position;
-    public int MaxHealth => 20;
+    public int MaxHealth => 100;
     public float HealthNormalized => (float) _currentHealth / MaxHealth;
 
     public bool IsActive
@@ -83,11 +82,11 @@ public class Player : MonoBehaviour, IDamageable, IEnemyTarget
         OnPlayerReborn?.Invoke();
     }
 
-    public void TakeDamage()
+    public void TakeDamage(int inputDamage)
     {
-        if (CurrentHealth >= HealthReduceValue)
+        if (CurrentHealth >= inputDamage)
         {
-            CurrentHealth -= HealthReduceValue;
+            CurrentHealth -= inputDamage;
 
             if (CurrentHealth <= 0)
             {
@@ -104,7 +103,7 @@ public class Player : MonoBehaviour, IDamageable, IEnemyTarget
 
     private void ClickAction(Vector3 position)
     {
-        _raycastAttack.PerformAttack(position);
+        _raycastAttack.PerformAttack(position, _damage);
     }
 
     private void LookOnCursor(Vector3 position)

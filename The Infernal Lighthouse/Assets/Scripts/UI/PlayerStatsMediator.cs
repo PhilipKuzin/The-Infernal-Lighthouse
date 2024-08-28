@@ -4,14 +4,14 @@ using UnityEngine;
 public class PlayerStatsMediator : IDisposable
 {
     private Player _player;
-    private PlayerStatsPanel _playerStatsPanel;
+    private UIWidgetLifeBar _uiWidgetlifeBar;
     private Level _level; 
 
-    private PlayerStatsMediator (Player player, PlayerStatsPanel playerStatsPanel, Level level) 
+    private PlayerStatsMediator (Player player, UIWidgetLifeBar uiWidgetLifeBar, Level level) 
     {
         Debug.Log("Создан медиатор playerStats!");
         _player = player;
-        _playerStatsPanel = playerStatsPanel;
+        _uiWidgetlifeBar = uiWidgetLifeBar;
         _level = level;              
 
         _player.OnHealthChanged += ChangeHealthView;
@@ -33,13 +33,12 @@ public class PlayerStatsMediator : IDisposable
 
     private void ResetHealthView()
     {
-        _playerStatsPanel.ResetView(_player.MaxHealth);
+        _uiWidgetlifeBar.ResetView(_player.MaxHealth);
     }
 
     private void ChangeHealthView()
     {
-        _playerStatsPanel.ChangeHealthView(_player.CurrentHealth);
-        //Debug.Log("Событие изменения здоровья отработало в медиаторе!");
+        _uiWidgetlifeBar.ChangeHealthView(_player.HealthNormalized);
     }
 
     public void Dispose()

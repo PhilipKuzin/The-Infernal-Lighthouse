@@ -1,21 +1,22 @@
+using System;
 using UnityEngine;
 using Zenject;
 
 public class PlayerStatsInstaller : MonoInstaller
 {
-    [SerializeField] private PlayerStatsPanel _playerStats;
+    [SerializeField] private UIWidgetLifeBar _uiWidgetLifeBar;
     [SerializeField] private Level _level;
 
     public override void InstallBindings()
     {
-        BindPlayerStats();
+        BindWidgetLifeBar();
         BindLevel();
         BindPlayerStatsMediator();
     }
 
-    private void BindPlayerStats()
+    private void BindWidgetLifeBar()
     {
-        Container.BindIntefacesAndSelfTo<PlayerStatsPanel>().FromInstance(_playerStats).AsSingle();
+        Container.BindIntefacesAndSelfTo<UIWidgetLifeBar>().FromInstance(_uiWidgetLifeBar).AsSingle();
     }
 
     private void BindLevel()

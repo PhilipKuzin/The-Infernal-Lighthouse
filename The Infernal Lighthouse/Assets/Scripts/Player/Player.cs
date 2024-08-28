@@ -19,7 +19,6 @@ public class Player : MonoBehaviour, IDamageable, IEnemyTarget
     private int _fragsCounter;
     private bool _isActive;
 
-
     public Vector3 Position => transform.position;
     public int MaxHealth => 100;
     public float HealthNormalized => (float)_currentHealth / MaxHealth;

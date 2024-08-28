@@ -6,10 +6,14 @@ public class RaycastAttak
 {
     public event Action<RaycastHit> OnEnemyKilled;
     public event Action<RaycastHit> OnMiss;
+    public event Action<float> OnReloadStarted;
+    public event Action OnReloadFinished;
+
+    private const float ReloadTime = 3f;
 
     private int _maxRound = 5;
     private int _shotsCount;
-    private bool _isReloading = false; 
+    private bool _isReloading = false;
 
     public void PerformAttack(Vector3 position, int damage)
     {
@@ -44,10 +48,14 @@ public class RaycastAttak
     private IEnumerator ReloadCoroutine()
     {
         _isReloading = true;
+        OnReloadStarted?.Invoke(ReloadTime);
         Debug.Log("Перезарядка в процессе!");
-        yield return new WaitForSeconds(3f);
+
+        yield return new WaitForSeconds(ReloadTime);
+
         _shotsCount = 0;
         _isReloading = false;
+        OnReloadFinished?.Invoke();
         Debug.Log("Перезарядка завершена!");
     }
 

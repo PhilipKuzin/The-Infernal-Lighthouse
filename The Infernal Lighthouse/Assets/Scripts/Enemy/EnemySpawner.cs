@@ -54,22 +54,22 @@ public class EnemySpawner : MonoBehaviour
             case 0:
                 _typeByLevel = EnemyType.RedEnemy;
                 _spawnCooldown = 4;
-                Debug.Log("спнбемэ 0");
+                //Debug.Log("спнбемэ 0");
                 return _typeByLevel;
             case 1:
                 _typeByLevel = EnemyType.RedEnemy;
                 _spawnCooldown = 2.5f;
-                Debug.Log("спнбемэ 1");
+                //Debug.Log("спнбемэ 1");
                 return _typeByLevel;
             case 2:
                 _typeByLevel = (EnemyType)Random.Range(0, 2);
                 _spawnCooldown = 2;
-                Debug.Log("спнбемэ 2");
+                //Debug.Log("спнбемэ 2");
                 return _typeByLevel;
             case 3:
                 _typeByLevel = (EnemyType)Random.Range(0, 3);
                 _spawnCooldown = 1;
-                Debug.Log("спнбемэ 3");
+                //Debug.Log("спнбемэ 3");
                 return _typeByLevel;
             default:
                 _typeByLevel = (EnemyType)Random.Range(1, 3);

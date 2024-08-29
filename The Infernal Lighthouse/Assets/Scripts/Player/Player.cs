@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using UnityEngine;
 using Zenject;
@@ -83,6 +84,8 @@ public class Player : MonoBehaviour, IDamageable, IEnemyTarget
 
     public void TakeDamage(int inputDamage)
     {
+        Camera.main.DOShakePosition(1,0.6f);
+
         CurrentHealth -= inputDamage;
 
         if (CurrentHealth <= 0)

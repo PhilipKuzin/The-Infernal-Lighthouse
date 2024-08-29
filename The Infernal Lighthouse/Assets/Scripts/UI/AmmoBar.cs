@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class AmmoBar : MonoBehaviour
 {
@@ -9,7 +10,12 @@ public class AmmoBar : MonoBehaviour
     public void StartReloadProcess(float duration)
     {
         _imageFiller.fillAmount = 1f;
-        Debug.Log("¿ÃÃŒ ¡¿– ¬ Àﬁ◊»À œ≈–≈«¿–ﬂƒ ”");
+
+        DOTween.Sequence()
+            .Append(transform.DOScale(0.8f, 0.1f))
+            .Append(transform.DOScale(1.5f, 0.3f))
+            .Append(transform.DOScale(1f, 0.2f));
+
         StartCoroutine(FillAmmoBar(duration));
     }
 

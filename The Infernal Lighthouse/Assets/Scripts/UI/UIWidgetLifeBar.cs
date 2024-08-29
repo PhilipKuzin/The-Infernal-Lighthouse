@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class UIWidgetLifeBar : MonoBehaviour
 {
-    [SerializeField] private ProgressBar _progressBar;
+    [SerializeField] private LifeBar _progressBar;
 
   
     public void ChangeHealthView(float health)

@@ -17,7 +17,7 @@ public class Player : MonoBehaviour, IDamageable, IEnemyTarget
     private float _moveSpeed = 5;
     private int _currentHealth;
     private int _damage = 1; // ÈÑÏÐÀÂÈÒÜ
-    private int _fragsCounter;
+    private int _fragsCounter = 9;
     private bool _isActive;
 
     public Vector3 Position => transform.position;

@@ -37,7 +37,10 @@ public class PlayerStatsMediator : IDisposable
 
     private void ChangeHealthView()
     {
-        _uiWidgetlifeBar.ChangeHealthView(_player.HealthNormalized);
+        if(_player.HealthNormalized < 0)
+            _uiWidgetlifeBar.ChangeHealthView(0);
+        else
+            _uiWidgetlifeBar.ChangeHealthView(_player.HealthNormalized);
     }
 
     public void Dispose()

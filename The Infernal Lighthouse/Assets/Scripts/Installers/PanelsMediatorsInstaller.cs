@@ -3,7 +3,7 @@ using Zenject;
 
 public class PanelsMediatorsInstaller : MonoInstaller
 {
-    [SerializeField] private DefeatPanel _defeatPanel;
+    [SerializeField] private UIPopUpDefeatPanel _defeatPanel;
     public override void InstallBindings()
     {
         BindDefeatPanel();
@@ -12,7 +12,7 @@ public class PanelsMediatorsInstaller : MonoInstaller
 
     private void BindDefeatPanel()
     {
-        Container.BindInterfacesAndSelfTo<DefeatPanel>().FromInstance(_defeatPanel).AsSingle();
+        Container.BindInterfacesAndSelfTo<UIPopUpDefeatPanel>().FromInstance(_defeatPanel).AsSingle();
     }
 
     private void BindDefeatPanelMediator()

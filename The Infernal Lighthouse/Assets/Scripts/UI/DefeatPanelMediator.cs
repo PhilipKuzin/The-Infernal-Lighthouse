@@ -3,9 +3,9 @@ using System;
 public class DefeatPanelMediator : IDisposable 
 {
     private Level _level;
-    private DefeatPanel _defeatPanel;
+    private UIPopUpDefeatPanel _defeatPanel;
 
-    public DefeatPanelMediator(Level level, DefeatPanel defeatPanel)
+    public DefeatPanelMediator(Level level, UIPopUpDefeatPanel defeatPanel)
     {
         _level = level;
         _defeatPanel = defeatPanel;

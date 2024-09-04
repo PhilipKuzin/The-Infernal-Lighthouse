@@ -7,4 +7,9 @@ public class GameSceneLoader : MonoBehaviour
     {
         SceneManager.LoadScene("GameScene");
     }
+
+    public void GoToMainMenuScene()
+    {
+        SceneManager.LoadScene("MainMenuScene");
+    }
 }

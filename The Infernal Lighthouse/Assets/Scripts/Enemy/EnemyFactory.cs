@@ -7,10 +7,10 @@ public class EnemyFactory
 {
     private const string ConfigsPath = "Enemies";
     private const string ImpEnemyConfig = "ImpConfig";
-    private const string BlueEnemyConfig = "BlueEnemy";
     private const string FlameEnemyConfig = "FlameConfig";
+    private const string DemonEnemyConfig = "DemonConfig";
 
-    private EnemyConfig _impEnemy, _flameEnemy, _blueEnemy;
+    private EnemyConfig _impEnemy, _flameEnemy, _demonEnemy;
     private DiContainer _container;
 
     public EnemyFactory(DiContainer container)
@@ -36,14 +36,14 @@ public class EnemyFactory
     {
         switch (enemyType)
         {
-            case EnemyType.RedEnemy:
+            case EnemyType.ImpEnemy:
                 return _impEnemy;
 
-            case EnemyType.GreenEnemy:
+            case EnemyType.FlameEnemy:
                 return _flameEnemy;
 
-            case EnemyType.BlueEnemy:
-                return _blueEnemy;
+            case EnemyType.DemonEnemy:
+                return _demonEnemy;
 
             default: throw new ArgumentException(nameof(enemyType));
         }
@@ -53,6 +53,6 @@ public class EnemyFactory
     {
         _impEnemy = Resources.Load<EnemyConfig>(Path.Combine(ConfigsPath, ImpEnemyConfig)); 
         _flameEnemy = Resources.Load<EnemyConfig>(Path.Combine(ConfigsPath, FlameEnemyConfig));
-        _blueEnemy = Resources.Load<EnemyConfig>(Path.Combine(ConfigsPath, BlueEnemyConfig));
+        _demonEnemy = Resources.Load<EnemyConfig>(Path.Combine(ConfigsPath, DemonEnemyConfig));
     }
 }

@@ -1,6 +1,6 @@
 public enum EnemyType
 {
-    RedEnemy = 0,
-    GreenEnemy,
-    BlueEnemy
+    ImpEnemy = 0,
+    FlameEnemy,
+    DemonEnemy
 }

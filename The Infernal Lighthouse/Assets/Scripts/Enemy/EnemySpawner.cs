@@ -20,7 +20,6 @@ public class EnemySpawner : MonoBehaviour
     private void Construct(EnemyFactory enemyFactory)
     {
         _enemyFactory = enemyFactory;
-        // Debug.Log("Фабрика прокинута в спавнер");
     }
 
     public void StartWork()
@@ -39,7 +38,7 @@ public class EnemySpawner : MonoBehaviour
     {
         while (true)  
         {
-            EnemyType selectedType = SetSpawnerModeBy(_level); // изменено 25.06!
+            EnemyType selectedType = SetSpawnerModeBy(_level);
             Enemy enemy = _enemyFactory.GetEnemy(selectedType);
             enemy.MoveTo(_spawnPoints[Random.Range(0, _spawnPoints.Count)].position);
             enemy.RotateTo();
@@ -47,17 +46,17 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    public EnemyType SetSpawnerModeBy(int level)  // добавлено 25.06!
+    public EnemyType SetSpawnerModeBy(int level)  
     {
         switch (level)
         {
             case 0:
-                _typeByLevel = EnemyType.RedEnemy;
+                _typeByLevel = EnemyType.ImpEnemy;
                 _spawnCooldown = 4;
                 //Debug.Log("УРОВЕНЬ 0");
                 return _typeByLevel;
             case 1:
-                //_typeByLevel = EnemyType.RedEnemy;
+                //_typeByLevel = EnemyType.ImpEnemy;
                 _typeByLevel = (EnemyType)Random.Range(0, 2);
                 _spawnCooldown = 2.5f;
                 //Debug.Log("УРОВЕНЬ 1");
@@ -68,12 +67,12 @@ public class EnemySpawner : MonoBehaviour
                 //Debug.Log("УРОВЕНЬ 2");
                 return _typeByLevel;
             case 3:
-                _typeByLevel = (EnemyType)Random.Range(0, 2);
+                _typeByLevel = (EnemyType)Random.Range(0, 3);
                 _spawnCooldown = 1;
                 //Debug.Log("УРОВЕНЬ 3");
                 return _typeByLevel;
             default:
-                _typeByLevel = (EnemyType)Random.Range(0, 2);
+                _typeByLevel = (EnemyType)Random.Range(0, 3);
                 _spawnCooldown = 0.8f;
                 return _typeByLevel;
         }

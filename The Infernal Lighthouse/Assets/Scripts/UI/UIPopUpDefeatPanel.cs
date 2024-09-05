@@ -19,7 +19,10 @@ public class UIPopUpDefeatPanel : MonoBehaviour
         _restartBtn?.onClick.RemoveListener(OnClickBtn);
     }
 
-    public void ShowPanel() => gameObject.SetActive(true);
+    public void ShowPanel()
+    {
+        gameObject.SetActive(true);
+    }
 
     public void HidePanel() => gameObject.SetActive(false);
 

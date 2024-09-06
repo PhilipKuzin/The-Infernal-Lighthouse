@@ -9,7 +9,7 @@ public class RaycastAttak
     public event Action<float> OnReloadStarted;
     public event Action OnReloadFinished;
 
-    private const float ReloadTime = 3f;
+    private const float ReloadTime = 2f;
 
     private int _maxRound = 5;
     private int _shotsCount;

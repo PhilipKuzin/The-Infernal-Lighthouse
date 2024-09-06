@@ -3,22 +3,29 @@ using UnityEngine;
 using Zenject;
 
 [RequireComponent(typeof(CapsuleCollider), typeof(Rigidbody))]
-public class Enemy : MonoBehaviour, IDamageable
+public class Enemy : MonoBehaviour, IDamageable, IPauseHandler
 {
     public event Action OnEnemyStoped;
+    public event Action<bool> OnEnemyStoppedByPause;
 
     private IEnemyTarget _target;
-    private Vector3 _direction;
 
+    private PauseManager _pauseManager;
+
+    private Vector3 _direction;
 
     private int _damage;
     private int _health;
     private int _currentHealth;
     private float _speed;
     private float _speedReduceMultiplier = 0.25f;
+    private bool _isPaused;
 
     private void Update()
     {
+        if (_isPaused == true)
+            return;
+     
         _direction = _target.Position - transform.position;
         transform.Translate(_direction.normalized * _speed * Time.deltaTime, Space.World);
 
@@ -37,9 +44,12 @@ public class Enemy : MonoBehaviour, IDamageable
     }
 
     [Inject]
-    private void Construct(IEnemyTarget enemyTarget)
+    private void Construct(IEnemyTarget enemyTarget, PauseManager pauseManager)
     {
+        _pauseManager = pauseManager;
         _target = enemyTarget;
+
+        _pauseManager.Register(this);
     }
 
     public void Initizlize(int health, float speed, int damage)
@@ -78,4 +88,9 @@ public class Enemy : MonoBehaviour, IDamageable
         }
     }
 
+    public void SetPaused(bool isPaused)
+    {
+        _isPaused = isPaused;
+        OnEnemyStoppedByPause?.Invoke(isPaused);
+    }
 }

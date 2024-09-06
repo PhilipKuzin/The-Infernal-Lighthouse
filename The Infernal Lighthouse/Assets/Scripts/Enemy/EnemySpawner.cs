@@ -1,25 +1,30 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 using Random = UnityEngine.Random;
 
-public class EnemySpawner : MonoBehaviour
+public class EnemySpawner : MonoBehaviour, IPauseHandler
 {
     [SerializeField] private List<Transform> _spawnPoints;
 
     private EnemyFactory _enemyFactory;
     private Coroutine _spawnCoroutine;
+    private PauseManager _pauseManager;
+
     private EnemyType _typeByLevel;
 
     private int _level;
-    private float _spawnCooldown; // ËÁÏÂÌÂÌÓ 25.06!
+    private float _spawnCooldown;
+    private bool _isPaused;
 
     [Inject]
-    private void Construct(EnemyFactory enemyFactory)
+    private void Construct(EnemyFactory enemyFactory, PauseManager pauseManager)
     {
         _enemyFactory = enemyFactory;
+        _pauseManager = pauseManager;
+
+        _pauseManager.Register(this);
     }
 
     public void StartWork()
@@ -28,7 +33,7 @@ public class EnemySpawner : MonoBehaviour
         _spawnCoroutine = StartCoroutine(SpawnCoroutine());
     }
 
-    private void StopWork()
+    public void StopWork()
     {
         if (_spawnCoroutine != null)
             StopCoroutine(_spawnCoroutine);
@@ -38,6 +43,11 @@ public class EnemySpawner : MonoBehaviour
     {
         while (true)  
         {
+            while (_isPaused)
+            {
+                yield return null; 
+            }
+
             EnemyType selectedType = SetSpawnerModeBy(_level);
             Enemy enemy = _enemyFactory.GetEnemy(selectedType);
             enemy.MoveTo(_spawnPoints[Random.Range(0, _spawnPoints.Count)].position);
@@ -53,27 +63,22 @@ public class EnemySpawner : MonoBehaviour
             case 0:
                 _typeByLevel = EnemyType.ImpEnemy;
                 _spawnCooldown = 4;
-                //Debug.Log("”–Œ¬≈Õ‹ 0");
                 return _typeByLevel;
             case 1:
-                //_typeByLevel = EnemyType.ImpEnemy;
-                _typeByLevel = (EnemyType)Random.Range(0, 2);
+                _typeByLevel = EnemyType.ImpEnemy;
                 _spawnCooldown = 2.5f;
-                //Debug.Log("”–Œ¬≈Õ‹ 1");
                 return _typeByLevel;
             case 2:
                 _typeByLevel = (EnemyType)Random.Range(0, 2);
-                _spawnCooldown = 2;
-                //Debug.Log("”–Œ¬≈Õ‹ 2");
+                _spawnCooldown = 2.5f;
                 return _typeByLevel;
             case 3:
                 _typeByLevel = (EnemyType)Random.Range(0, 3);
-                _spawnCooldown = 1;
-                //Debug.Log("”–Œ¬≈Õ‹ 3");
+                _spawnCooldown = 1.5f;
                 return _typeByLevel;
             default:
                 _typeByLevel = (EnemyType)Random.Range(0, 3);
-                _spawnCooldown = 0.8f;
+                _spawnCooldown = 1f;
                 return _typeByLevel;
         }
     }
@@ -85,6 +90,11 @@ public class EnemySpawner : MonoBehaviour
 
     public void SetLevelDefeated()
     {
-        StopWork(); // 22 07
+        StopWork(); 
+    }
+
+    public void SetPaused(bool isPaused)
+    {
+        _isPaused = isPaused;
     }
 }

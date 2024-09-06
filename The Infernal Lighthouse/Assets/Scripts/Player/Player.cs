@@ -4,7 +4,7 @@ using UnityEngine;
 using Zenject;
 
 [RequireComponent(typeof(Rigidbody), typeof(BoxCollider))]
-public class Player : MonoBehaviour, IDamageable, IEnemyTarget
+public class Player : MonoBehaviour, IDamageable, IEnemyTarget, IPauseHandler
 {
     public event Action OnHealthChanged;
     public event Action OnDead;
@@ -13,12 +13,18 @@ public class Player : MonoBehaviour, IDamageable, IEnemyTarget
 
     private RaycastAttak _raycastAttack;
     private MovementHandler _movementHandler;
+    private PauseManager _pauseManager;
 
     private float _moveSpeed = 5;
     private int _currentHealth;
     private int _damage = 1; // ИСПРАВИТЬ
-    private int _fragsCounter = 9;
+    private int _fragsCounter = 0;
+    private int _comparator = 4;
+    private int _comparatorMultiplier = 2;
+
     private bool _isActive;
+    private bool _isPaused;
+    
 
     public Vector3 Position => transform.position;
     public int MaxHealth => 100;
@@ -51,25 +57,33 @@ public class Player : MonoBehaviour, IDamageable, IEnemyTarget
         _movementHandler.OnMove -= LookOnCursor;
         _movementHandler.OnClicked -= ClickAction;
         _raycastAttack.OnEnemyKilled -= IncreaseFragsСount;
+
+        //_pauseManager.UnRegister(this); // возможны баги
     }
 
     [Inject]
-    private void Construct(MovementHandler movementHandler, RaycastAttak raycastAttak)
+    private void Construct(MovementHandler movementHandler, RaycastAttak raycastAttak, PauseManager pauseManager)
     {
         _movementHandler = movementHandler;
         _raycastAttack = raycastAttak;
+        _pauseManager = pauseManager;
+
         _movementHandler.OnMove += LookOnCursor;
         _movementHandler.OnClicked += ClickAction;
         _raycastAttack.OnEnemyKilled += IncreaseFragsСount;
+
+        _pauseManager.Register(this);
+        _isPaused = _pauseManager.IsPaused;
     }
 
-    private void IncreaseFragsСount(RaycastHit hitInfo)  // добавлено 25.06! увеличение счетчика фрагов и проверка на левелАп СДЕЛАТЬ НОРМАЛЬНО
-                                                         // передается ненужный параметр, подумать как исправить
+    private void IncreaseFragsСount(RaycastHit hitInfo)                                                       
     {
         FragsCounter++;
 
-        if (FragsCounter % 10 == 0)
+        if (FragsCounter % _comparator == 0)
         {
+            _comparator += _comparatorMultiplier;
+            FragsCounter = 0;
             OnPlayerLevelChanged?.Invoke();
             Debug.Log("LEVEL UP");
         }
@@ -102,11 +116,17 @@ public class Player : MonoBehaviour, IDamageable, IEnemyTarget
 
     private void ClickAction(Vector3 position)
     {
+        if (_isPaused == true)
+            return;
+
         _raycastAttack.PerformAttack(position, _damage);
     }
 
     private void LookOnCursor(Vector3 position)
     {
+        if (_isPaused == true)
+            return;
+
         Plane playerPlane = new Plane(Vector3.up, transform.position);
         Ray ray = Camera.main.ScreenPointToRay(position);
 
@@ -116,5 +136,10 @@ public class Player : MonoBehaviour, IDamageable, IEnemyTarget
             Quaternion targetRotation = Quaternion.LookRotation(targetPoint - transform.position);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, _moveSpeed * Time.deltaTime);
         }
+    }
+
+    public void SetPaused(bool isPaused)
+    {
+        _isPaused = isPaused;
     }
 }

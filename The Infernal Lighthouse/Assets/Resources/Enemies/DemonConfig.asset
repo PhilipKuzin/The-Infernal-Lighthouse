@@ -15,4 +15,4 @@ MonoBehaviour:
   _prefab: {fileID: -1947472745256122066, guid: ecde77c4a1dc2204e8254e749fce636d, type: 3}
   _health: 0
   _speed: 1.5
-  _damage: 9
+  _damage: 17

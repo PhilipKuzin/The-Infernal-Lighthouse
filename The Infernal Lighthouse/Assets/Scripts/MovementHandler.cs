@@ -12,7 +12,7 @@ public class MovementHandler : IDisposable
     {
         _input = input;
         _input.OnPointerMove += Move;
-        _input.OnClicked += Click;
+        _input.OnMouseClicked += Click;
     }
 
     public void Click(Vector3 position)
@@ -28,6 +28,6 @@ public class MovementHandler : IDisposable
     public void Dispose()
     {
         _input.OnPointerMove -= Move;
-        _input.OnClicked -= Click;
+        _input.OnMouseClicked -= Click;
     }
 }

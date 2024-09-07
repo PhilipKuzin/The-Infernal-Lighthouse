@@ -39,6 +39,16 @@ public class EnemySpawner : MonoBehaviour, IPauseHandler
             StopCoroutine(_spawnCoroutine);
     }
 
+    public void SetLevel(int level)
+    {
+        _level = level;
+    }
+
+    public void SetPaused(bool isPaused)
+    {
+        _isPaused = isPaused;
+    }
+
     private IEnumerator SpawnCoroutine()
     {
         while (true)  
@@ -56,7 +66,7 @@ public class EnemySpawner : MonoBehaviour, IPauseHandler
         }
     }
 
-    public EnemyType SetSpawnerModeBy(int level)  
+    private EnemyType SetSpawnerModeBy(int level)  
     {
         switch (level)
         {
@@ -81,20 +91,5 @@ public class EnemySpawner : MonoBehaviour, IPauseHandler
                 _spawnCooldown = 1f;
                 return _typeByLevel;
         }
-    }
-
-    public void SetLevel(int level)
-    {
-        _level = level;
-    }
-
-    public void SetLevelDefeated()
-    {
-        StopWork(); 
-    }
-
-    public void SetPaused(bool isPaused)
-    {
-        _isPaused = isPaused;
     }
 }

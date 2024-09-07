@@ -30,6 +30,5 @@ public sealed class CoroutineRunner : MonoBehaviour
         {
             Instance.StopCoroutine(routine);
         }
-
     }
 }

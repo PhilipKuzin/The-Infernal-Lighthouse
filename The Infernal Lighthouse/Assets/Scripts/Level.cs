@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using Zenject;
 
 public class Level : MonoBehaviour
 {
@@ -15,15 +14,10 @@ public class Level : MonoBehaviour
         Restart();
     }
 
-    private void StopSpawnProcess()
-    {
-        _spawner.StopWork();
-    }
-
     public void Restart()
     {
         _spawner.SetLevel(_levelNumber);
-        _spawner.SetLevelDefeated();
+        _spawner.StopWork();
         _spawner.StartWork();
     }
 
@@ -36,7 +30,7 @@ public class Level : MonoBehaviour
 
     public void LoseLevel()
     {
-        _spawner.SetLevelDefeated(); // заменить на StopWork();
+        _spawner.StopWork(); 
         OnLevelLost?.Invoke();
     }
 

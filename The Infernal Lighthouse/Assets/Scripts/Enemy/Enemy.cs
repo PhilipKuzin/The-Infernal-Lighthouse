@@ -70,7 +70,6 @@ public class Enemy : MonoBehaviour, IDamageable, IPauseHandler
 
     public void TakeDamage(int damage)
     {
-        Debug.Log("Damage applied!");
         _currentHealth -= damage;
 
         if ( _currentHealth <= 0 )

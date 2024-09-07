@@ -9,7 +9,6 @@ public class UIWidgetAmmoBar : MonoBehaviour
     public void StartReloadAnimation (float duration)
     {
         _ammoBar.StartReloadProcess(duration);
-        Debug.Log("ÂÈÄÆÅÒ ÂÊËŞ×ÈË ÏÅĞÅÇÀĞßÄÊÓ");
     }
 
     public void ResetReloadAnimation ()

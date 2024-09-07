@@ -17,7 +17,7 @@ public class Player : MonoBehaviour, IDamageable, IEnemyTarget, IPauseHandler
 
     private float _moveSpeed = 5;
     private int _currentHealth;
-    private int _damage = 1; // »—œ–¿¬»“‹
+    private int _damage = 1; 
     private int _fragsCounter = 0;
     private int _comparator = 4;
     private int _comparatorMultiplier = 2;
@@ -25,7 +25,6 @@ public class Player : MonoBehaviour, IDamageable, IEnemyTarget, IPauseHandler
     private bool _isActive;
     private bool _isPaused;
     
-
     public Vector3 Position => transform.position;
     public int MaxHealth => 100;
     public float HealthNormalized => (float)_currentHealth / MaxHealth;
@@ -58,7 +57,7 @@ public class Player : MonoBehaviour, IDamageable, IEnemyTarget, IPauseHandler
         _movementHandler.OnClicked -= ClickAction;
         _raycastAttack.OnEnemyKilled -= IncreaseFrags—ount;
 
-        //_pauseManager.UnRegister(this); // ‚ÓÁÏÓÊÌ˚ ·‡„Ë
+        //_pauseManager.UnRegister(this); ‚ÓÁÏÓÊÌ˚ ·‡„Ë
     }
 
     [Inject]
@@ -67,26 +66,18 @@ public class Player : MonoBehaviour, IDamageable, IEnemyTarget, IPauseHandler
         _movementHandler = movementHandler;
         _raycastAttack = raycastAttak;
         _pauseManager = pauseManager;
+        _isPaused = _pauseManager.IsPaused;
 
         _movementHandler.OnMove += LookOnCursor;
         _movementHandler.OnClicked += ClickAction;
         _raycastAttack.OnEnemyKilled += IncreaseFrags—ount;
 
         _pauseManager.Register(this);
-        _isPaused = _pauseManager.IsPaused;
     }
 
-    private void IncreaseFrags—ount(RaycastHit hitInfo)                                                       
+    public void SetPaused(bool isPaused)
     {
-        FragsCounter++;
-
-        if (FragsCounter % _comparator == 0)
-        {
-            _comparator += _comparatorMultiplier;
-            FragsCounter = 0;
-            OnPlayerLevelChanged?.Invoke();
-            Debug.Log("LEVEL UP");
-        }
+        _isPaused = isPaused;
     }
 
     public void Reborn()
@@ -113,6 +104,18 @@ public class Player : MonoBehaviour, IDamageable, IEnemyTarget, IPauseHandler
 
         OnHealthChanged?.Invoke();
     }
+    private void IncreaseFrags—ount(RaycastHit hitInfo)
+    {
+        FragsCounter++;
+
+        if (FragsCounter % _comparator == 0)
+        {
+            _comparator += _comparatorMultiplier;
+            FragsCounter = 0;
+            OnPlayerLevelChanged?.Invoke();
+            Debug.Log("LEVEL UP");
+        }
+    }
 
     private void ClickAction(Vector3 position)
     {
@@ -136,10 +139,5 @@ public class Player : MonoBehaviour, IDamageable, IEnemyTarget, IPauseHandler
             Quaternion targetRotation = Quaternion.LookRotation(targetPoint - transform.position);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, _moveSpeed * Time.deltaTime);
         }
-    }
-
-    public void SetPaused(bool isPaused)
-    {
-        _isPaused = isPaused;
     }
 }

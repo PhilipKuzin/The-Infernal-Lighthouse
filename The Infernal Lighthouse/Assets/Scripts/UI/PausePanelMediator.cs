@@ -1,7 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 public class PausePanelMediator : IDisposable
 {
@@ -19,15 +16,15 @@ public class PausePanelMediator : IDisposable
         _pausePanel.OnClickedResumeBtn += DoLogicChangingPause;
     }
 
-    private void DoLogicChangingPause(bool flag)
-    {
-        _pauseManager.SetPaused(flag);
-        _pausePanel.SetActive(flag);
-    }
-
     public void Dispose()
     {
         _input.OnEscapeClicked -= DoLogicChangingPause;
         _pausePanel.OnClickedResumeBtn -= DoLogicChangingPause;
+    }
+
+    private void DoLogicChangingPause(bool flag)
+    {
+        _pauseManager.SetPaused(flag);
+        _pausePanel.SetActive(flag);
     }
 }

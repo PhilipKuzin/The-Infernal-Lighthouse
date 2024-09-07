@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using Zenject;
 
@@ -16,8 +15,6 @@ public class PanelsMediatorsInstaller : MonoInstaller
         BindPausePanelMediator();
     }
 
-
-
     private void BindDefeatPanel()
     {
         Container.BindInterfacesAndSelfTo<UIPopUpDefeatPanel>().FromInstance(_defeatPanel).AsSingle();
@@ -32,7 +29,6 @@ public class PanelsMediatorsInstaller : MonoInstaller
     {
         Container.BindInterfacesAndSelfTo<UIPopUpPausePanel>().FromInstance(_pausePanel).AsSingle();
     }
-
 
     private void BindPauseManager()
     {

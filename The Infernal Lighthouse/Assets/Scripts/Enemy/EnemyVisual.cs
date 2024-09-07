@@ -1,11 +1,10 @@
-using System;
 using UnityEngine;
 
 public class EnemyVisual : MonoBehaviour
 {
     private Animator _animator;
 
-    private void Start()
+    private void Awake()
     {
         _animator = GetComponent<Animator>();
     }

@@ -1,5 +1,4 @@
 using System;
-using UnityEngine;
 
 public class WidgetAmmoBarMediator : IDisposable
 {
@@ -8,8 +7,6 @@ public class WidgetAmmoBarMediator : IDisposable
 
     public WidgetAmmoBarMediator(UIWidgetAmmoBar uIWidgetAmmoBar, RaycastAttak raycastAttak)
     {
-
-        Debug.Log("ледхюрнп юллн янгдюм");
         _uiWidgetAmmoBar = uIWidgetAmmoBar;
         _raycastAttak = raycastAttak;
 
@@ -26,12 +23,10 @@ public class WidgetAmmoBarMediator : IDisposable
     private void ResetReload()
     {
         _uiWidgetAmmoBar.ResetReloadAnimation();
-
     }
 
     private void StartReload(float duration)
     {
         _uiWidgetAmmoBar.StartReloadAnimation(duration);
-        Debug.Log("ледхюрнп бйкчвхк оепегюпъдйс");
     }
 }

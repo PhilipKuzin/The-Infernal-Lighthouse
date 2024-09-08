@@ -11,6 +11,7 @@ public class RaycastAttak : IPauseHandler
     public event Action OnReloadFinished;
 
     private PauseManager _pauseManager;
+    private Coroutine _reloadCoroutine;
 
     private const float ReloadTime = 2f;
 
@@ -18,8 +19,6 @@ public class RaycastAttak : IPauseHandler
     private int _shotsCount;
     private bool _isReloading = false;
     private bool _isPaused;
-
-    private Coroutine _reloadCoroutine;
 
     [Inject]
     private void Construct(PauseManager pauseManager)
@@ -98,6 +97,4 @@ public class RaycastAttak : IPauseHandler
         OnReloadFinished?.Invoke();
         Debug.Log("Перезарядка завершена!");
     }
-
-
 }

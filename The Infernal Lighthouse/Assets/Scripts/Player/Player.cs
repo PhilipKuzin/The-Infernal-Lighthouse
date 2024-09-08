@@ -84,6 +84,7 @@ public class Player : MonoBehaviour, IDamageable, IEnemyTarget, IPauseHandler
     {
         CurrentHealth = MaxHealth;
         _isActive = true;
+        _raycastAttack.SetStartedAmmoAmount();
         OnPlayerReborn?.Invoke();
     }
 

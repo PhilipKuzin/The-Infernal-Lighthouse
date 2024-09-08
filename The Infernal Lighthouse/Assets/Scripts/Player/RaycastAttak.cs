@@ -6,8 +6,9 @@ using Zenject;
 public class RaycastAttak : IPauseHandler
 {
     public event Action<RaycastHit> OnEnemyKilled;
-    public event Action<RaycastHit> OnMiss;
+    public event Action<RaycastHit> OnMissed;
     public event Action<float> OnReloadStarted;
+    public event Action<int> OnAmmoRecounted;
     public event Action OnReloadFinished;
 
     private PauseManager _pauseManager;
@@ -15,8 +16,9 @@ public class RaycastAttak : IPauseHandler
 
     private const float ReloadTime = 2f;
 
-    private int _maxRound = 5;
-    private int _shotsCount;
+    private int _maxAmmo = 5;
+    private int _currentAmmo;
+    private int _shotsAmount;
     private bool _isReloading = false;
     private bool _isPaused;
 
@@ -25,8 +27,14 @@ public class RaycastAttak : IPauseHandler
     {
         _pauseManager = pauseManager;
         _isPaused = _pauseManager.IsPaused;
+        _currentAmmo = _maxAmmo;
 
         _pauseManager.Register(this);
+    }
+
+    public void SetStartedAmmoAmount ()
+    {
+        OnAmmoRecounted?.Invoke(_currentAmmo);
     }
 
     public void PerformAttack(Vector3 position, int damage)
@@ -34,7 +42,10 @@ public class RaycastAttak : IPauseHandler
         if (_isReloading || _isPaused)
             return;
 
-        _shotsCount++;
+        _shotsAmount++;
+        _currentAmmo = _maxAmmo - _shotsAmount;
+
+        OnAmmoRecounted?.Invoke(_currentAmmo);
 
         Ray ray = Camera.main.ScreenPointToRay(position);
 
@@ -49,11 +60,11 @@ public class RaycastAttak : IPauseHandler
             }
             else
             {
-                OnMiss?.Invoke(hitInfo);
+                OnMissed?.Invoke(hitInfo);
             }
         }
 
-        if (_shotsCount >= _maxRound)
+        if (_shotsAmount >= _maxAmmo)
         {
             StartReload();
         }
@@ -92,8 +103,10 @@ public class RaycastAttak : IPauseHandler
             yield return null; 
         }
 
-        _shotsCount = 0;
+        _shotsAmount = 0;
+        _currentAmmo = _maxAmmo;
         _isReloading = false;
+        OnAmmoRecounted?.Invoke(_currentAmmo);
         OnReloadFinished?.Invoke();
         Debug.Log("Перезарядка завершена!");
     }

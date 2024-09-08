@@ -15,4 +15,9 @@ public class UIWidgetAmmoBar : MonoBehaviour
     {
         _ammoBar.ResetAmmoBar();
     }
+
+    public void ChangeAmmoCount (int ammoAmount)
+    {
+        _ammoBar.ChangeAmmoAmount(ammoAmount);
+    }
 }

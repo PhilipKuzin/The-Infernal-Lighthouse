@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 public class WidgetAmmoBarMediator : IDisposable
 {
@@ -12,12 +13,19 @@ public class WidgetAmmoBarMediator : IDisposable
 
         _raycastAttak.OnReloadStarted += StartReload;
         _raycastAttak.OnReloadFinished += ResetReload;
+        _raycastAttak.OnAmmoRecounted += RecountAmmoView;
+    }
+
+    private void RecountAmmoView(int ammoAmount)
+    {
+        _uiWidgetAmmoBar.ChangeAmmoCount(ammoAmount);
     }
 
     public void Dispose()
     {
         _raycastAttak.OnReloadStarted -= StartReload;
         _raycastAttak.OnReloadFinished -= ResetReload;
+        _raycastAttak.OnAmmoRecounted -= RecountAmmoView;
     }
 
     private void ResetReload()

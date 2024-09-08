@@ -3,22 +3,29 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using Zenject;
+using TMPro;
 
 public class AmmoBar : MonoBehaviour, IPauseHandler
 {
     [SerializeField] private Image _imageFiller;
+    [SerializeField] private TMP_Text _ammoAmount;
 
     private PauseManager _pauseManager;
 
     private bool _isPaused;
 
     [Inject]
-    private void Construct (PauseManager pauseManager)
+    private void Construct(PauseManager pauseManager)
     {
         _pauseManager = pauseManager;
         _isPaused = _pauseManager.IsPaused;
 
         _pauseManager.Register(this);
+    }
+
+    public void ChangeAmmoAmount(int ammoAmount)
+    {
+        _ammoAmount.text = $"{ammoAmount}";
     }
 
     public void StartReloadProcess(float duration)
@@ -59,7 +66,7 @@ public class AmmoBar : MonoBehaviour, IPauseHandler
             yield return null;
         }
 
-        if (elapsed == duration) 
+        if (elapsed == duration)
             _imageFiller.fillAmount = 0f;
     }
 }

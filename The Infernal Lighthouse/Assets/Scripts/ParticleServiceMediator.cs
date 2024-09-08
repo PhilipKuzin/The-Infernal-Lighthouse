@@ -15,7 +15,7 @@ public class ParticleServiceMediator : IDisposable
 
         _player.OnHealthChanged += DoHealthChangeAction;
         _raycastAttack.OnEnemyKilled += DoEnemyKillAction;
-        _raycastAttack.OnMiss += DoMissAction;
+        _raycastAttack.OnMissed += DoMissAction;
     }
 
     private void DoMissAction(RaycastHit hitInfo)
@@ -37,6 +37,6 @@ public class ParticleServiceMediator : IDisposable
     {
         _player.OnHealthChanged -= DoHealthChangeAction;
         _raycastAttack.OnEnemyKilled -= DoEnemyKillAction;
-        _raycastAttack.OnMiss -= DoMissAction;
+        _raycastAttack.OnMissed -= DoMissAction;
     }
 }

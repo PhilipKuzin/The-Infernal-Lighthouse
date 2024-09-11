@@ -1,17 +1,21 @@
 using System;
 using UnityEngine;
-using UnityEngine.UIElements;
 using Zenject;
 
-public class DesktopInput : IInput, ITickable
+public class DesktopInput : IInput, ITickable, IInitializable
 {
     public event Action<Vector3> OnPointerMove;
     public event Action<Vector3> OnMouseClicked;
-    public event Action<bool> OnEscapeClicked;
+    public event IInput.BoolEventHandler OnEscapeClicked;
 
     private const int LeftMouseBtn = 0;
 
-    private bool _wasEscPressed = false;
+    private bool _wasEscPressed = true;
+
+    public void Initialize()
+    {
+        _wasEscPressed = true;
+    }
 
     public void Tick()
     {
@@ -31,14 +35,15 @@ public class DesktopInput : IInput, ITickable
             OnMouseClicked?.Invoke(Input.mousePosition);
     }
 
-    private void ProcessEscape ()
+    private void ProcessEscape()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            _wasEscPressed = !_wasEscPressed;
-            OnEscapeClicked?.Invoke(_wasEscPressed);
-        }
-            
+            OnEscapeClicked?.Invoke(ref _wasEscPressed); // передаем подписчикам true 
     }
- 
+
+    public void ResetEscFlag()
+    {
+        _wasEscPressed = true;
+    }
+
 }

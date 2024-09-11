@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GroundTextureChanger : MonoBehaviour
@@ -16,6 +14,4 @@ public class GroundTextureChanger : MonoBehaviour
             renderer.material = _groundMaterials[randomMaterial];
         }
     }
-
-
 }

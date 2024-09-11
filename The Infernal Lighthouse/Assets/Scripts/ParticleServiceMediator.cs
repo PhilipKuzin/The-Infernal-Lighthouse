@@ -18,6 +18,13 @@ public class ParticleServiceMediator : IDisposable
         _raycastAttack.OnMissed += DoMissAction;
     }
 
+    public void Dispose()
+    {
+        _player.OnHealthChanged -= DoHealthChangeAction;
+        _raycastAttack.OnEnemyKilled -= DoEnemyKillAction;
+        _raycastAttack.OnMissed -= DoMissAction;
+    }
+
     private void DoMissAction(RaycastHit hitInfo)
     {
         _particleService.SpawnParticleEffectMiss(hitInfo);
@@ -31,12 +38,5 @@ public class ParticleServiceMediator : IDisposable
     private void DoHealthChangeAction()
     {
         _particleService.SpawnParticleEffectPlayerExplosion(_player.transform.position);
-    }
-
-    public void Dispose()
-    {
-        _player.OnHealthChanged -= DoHealthChangeAction;
-        _raycastAttack.OnEnemyKilled -= DoEnemyKillAction;
-        _raycastAttack.OnMissed -= DoMissAction;
     }
 }

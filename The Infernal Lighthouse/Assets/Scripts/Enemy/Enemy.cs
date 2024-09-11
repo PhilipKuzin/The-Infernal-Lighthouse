@@ -63,10 +63,7 @@ public class Enemy : MonoBehaviour, IDamageable, IPauseHandler
 
     public void MoveTo(Vector3 position) => transform.position = position;
 
-    public void RotateTo()
-    {
-        transform.LookAt(_target.Position);
-    }
+    public void RotateTo() => transform.LookAt(_target.Position);
 
     public void TakeDamage(int damage)
     {

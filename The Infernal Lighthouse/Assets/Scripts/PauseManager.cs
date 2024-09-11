@@ -25,6 +25,4 @@ public class PauseManager : IPauseHandler
             handler.SetPaused(isPaused);
         }
     }
-
-    
 }

@@ -24,6 +24,11 @@ public class UIPopUpPausePanel : MonoBehaviour
         _restartBtn?.onClick.RemoveListener(OnClickRestartBtn);
     }
 
+    public void SetActive(bool state)
+    {
+        gameObject.SetActive(state);
+    }
+
     private void OnClickRestartBtn()
     {
         OnClickedRestartBtn?.Invoke();
@@ -33,10 +38,5 @@ public class UIPopUpPausePanel : MonoBehaviour
     private void OnClickResumeBtn()
     {
         OnClickedResumeBtn?.Invoke (_flag);
-    }
-
-    public void SetActive(bool state)
-    {
-        gameObject.SetActive(state);
     }
 }

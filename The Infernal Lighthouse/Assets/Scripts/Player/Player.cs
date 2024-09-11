@@ -56,8 +56,6 @@ public class Player : MonoBehaviour, IDamageable, IEnemyTarget, IPauseHandler
         _movementHandler.OnMove -= LookOnCursor;
         _movementHandler.OnClicked -= ClickAction;
         _raycastAttack.OnEnemyKilled -= IncreaseFragsÑount;
-
-        //_pauseManager.UnRegister(this); âîçìîæíû áàãè
     }
 
     [Inject]
@@ -105,6 +103,7 @@ public class Player : MonoBehaviour, IDamageable, IEnemyTarget, IPauseHandler
 
         OnHealthChanged?.Invoke();
     }
+
     private void IncreaseFragsÑount(RaycastHit hitInfo)
     {
         FragsCounter++;

@@ -1,5 +1,4 @@
 using System;
-using UnityEngine;
 
 public class PausePanelMediator : IDisposable
 {
@@ -15,6 +14,9 @@ public class PausePanelMediator : IDisposable
 
         _input.OnEscapeClicked += DoLogicChangingPause;
         _pausePanel.OnClickedResumeBtn += DoLogicChangingPauseFromResumeBtn;
+
+        if (_input is DesktopInput desktopInput)
+            desktopInput.ResetEscFlag();
     }
 
     public void Dispose()

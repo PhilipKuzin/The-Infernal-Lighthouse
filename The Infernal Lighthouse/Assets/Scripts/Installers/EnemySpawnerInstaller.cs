@@ -7,7 +7,6 @@ public class EnemySpawnerInstaller : MonoInstaller
         BindFactory();
     }
 
-
     private void BindFactory()
     {
         Container.BindIntefacesAndSelfTo<EnemyFactory>().AsSingle(); ;

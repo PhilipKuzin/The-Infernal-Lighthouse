@@ -1,5 +1,4 @@
 using System;
-using UnityEngine;
 
 public class PlayerStatsMediator : IDisposable
 {
@@ -19,6 +18,14 @@ public class PlayerStatsMediator : IDisposable
         _player.OnDead += LoseLevel; 
     }
 
+    public void Dispose()
+    {
+        _player.OnHealthChanged -= ChangeHealthView;
+        _player.OnPlayerReborn -= ResetHealthView;
+        _player.OnPlayerLevelChanged -= IncreaseLevel;
+        _player.OnDead -= LoseLevel;
+    }
+
     private void LoseLevel() 
     {
         _level.LoseLevel();
@@ -27,7 +34,6 @@ public class PlayerStatsMediator : IDisposable
     private void IncreaseLevel() 
     {
         _level.Increase();
-        // добавить анимацию нового уровня на экране? 
     }
 
     private void ResetHealthView()
@@ -41,13 +47,5 @@ public class PlayerStatsMediator : IDisposable
             _uiWidgetlifeBar.ChangeHealthView(0);
         else
             _uiWidgetlifeBar.ChangeHealthView(_player.HealthNormalized);
-    }
-
-    public void Dispose()
-    {
-        _player.OnHealthChanged -= ChangeHealthView;
-        _player.OnPlayerReborn -= ResetHealthView;
-        _player.OnPlayerLevelChanged -= IncreaseLevel;
-        _player.OnDead -= LoseLevel; 
     }
 }

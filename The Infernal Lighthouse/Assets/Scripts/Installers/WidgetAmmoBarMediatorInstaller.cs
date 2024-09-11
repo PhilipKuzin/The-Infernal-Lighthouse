@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using Zenject;
 
@@ -11,5 +10,4 @@ public class WidgetAmmoBarMediatorInstaller : MonoInstaller
         Container.BindInterfacesAndSelfTo<UIWidgetAmmoBar>().FromInstance(_uiWidgetAmmoBar).AsSingle();
         Container.BindInterfacesAndSelfTo<WidgetAmmoBarMediator>().AsSingle();
     }
-
 }

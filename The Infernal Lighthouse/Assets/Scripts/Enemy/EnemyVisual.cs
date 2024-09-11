@@ -8,6 +8,7 @@ public class EnemyVisual : MonoBehaviour
     {
         _animator = GetComponent<Animator>();
     }
+
     public void StopAnimation()
     {
         _animator.SetTrigger("StopMove");

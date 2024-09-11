@@ -32,7 +32,7 @@ public class RaycastAttak : IPauseHandler
         _pauseManager.Register(this);
     }
 
-    public void SetStartedAmmoAmount ()
+    public void SetStartedAmmoAmount()
     {
         OnAmmoRecounted?.Invoke(_currentAmmo);
     }
@@ -59,15 +59,11 @@ public class RaycastAttak : IPauseHandler
                 realEnemy.TakeDamage(damage);
             }
             else
-            {
                 OnMissed?.Invoke(hitInfo);
-            }
         }
 
         if (_shotsAmount >= _maxAmmo)
-        {
             StartReload();
-        }
     }
 
     public void SetPaused(bool isPaused)
@@ -95,12 +91,12 @@ public class RaycastAttak : IPauseHandler
         {
             if (_isPaused)
             {
-                yield return null; 
-                continue; 
+                yield return null;
+                continue;
             }
 
-            elapsed += Time.deltaTime; 
-            yield return null; 
+            elapsed += Time.deltaTime;
+            yield return null;
         }
 
         _shotsAmount = 0;

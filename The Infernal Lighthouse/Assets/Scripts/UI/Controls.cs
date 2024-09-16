@@ -13,7 +13,6 @@ public class Controls : MonoBehaviour, IDisposable
     private void Construct(IInput input)
     {
         _input = input;
-        Debug.Log("Œ“–¿¡Œ“¿À");
         _input.OnEscapeClicked += HideControlsPanel;
     }
 
@@ -30,7 +29,6 @@ public class Controls : MonoBehaviour, IDisposable
 
     private void HideControlsPanel(ref bool flag)
     {
-        Debug.Log("’¿…ƒ œ¿Õ≈À Œ“–¿¡Œ“¿À");
         if (_mainPanel != null && _controlPanel != null)
         {
             _mainPanel.SetActive(true);

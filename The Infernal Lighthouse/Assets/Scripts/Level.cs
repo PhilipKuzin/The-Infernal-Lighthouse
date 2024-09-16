@@ -6,16 +6,18 @@ public class Level : MonoBehaviour
     [SerializeField] private EnemySpawner _spawner;
 
     public event Action OnLevelLost;
+    public event Action OnLevelStarted;
 
     private int _levelNumber;
 
     private void Awake() 
     {
-        Restart();
+        Invoke("Restart", 1f);
     }
 
     public void Restart()
     {
+        OnLevelStarted?.Invoke();
         _spawner.SetLevel(_levelNumber);
         _spawner.StopWork();
         _spawner.StartWork();

@@ -26,7 +26,7 @@ public class Player : MonoBehaviour, IDamageable, IEnemyTarget, IPauseHandler
     private bool _isPaused;
     
     public Vector3 Position => transform.position;
-    public int MaxHealth => 100;
+    public int MaxHealth => 10;
     public float HealthNormalized => (float)_currentHealth / MaxHealth;
 
     public bool IsActive

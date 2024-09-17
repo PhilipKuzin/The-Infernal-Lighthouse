@@ -28,12 +28,8 @@ public class PlayerInstaller : MonoInstaller
 
     private void BindPlayer()
     {
-        // Поворот, который нужно применить, чтобы ось Z объекта указывала вверх
         Quaternion rotation = Quaternion.Euler(-90, 0, 0);
-
-        // Инстанциируем игрока с нужной ориентацией
         Player player = Container.InstantiatePrefabForComponent<Player>(_playerPrefab, _playerSpawnPoint.position, rotation, null);
-
         Container.BindInterfacesAndSelfTo<Player>().FromInstance(player).AsSingle();
     }
 

@@ -52,13 +52,17 @@ public class UIWidgetTimer : MonoBehaviour, IPauseHandler
 
     private void StartTimer()
     {
-        Debug.Log("ÂÛÇÂÀËÎÑÜ");
-        _timerCoroutine = CoroutineRunner.StartRoutine(ITimer());
+        if (transform != null)
+        {
+            Debug.Log("ÂÛÇÂÀËÎÑÜ");
+            _timerCoroutine = CoroutineRunner.StartRoutine(ITimer());
 
-        DOTween.Sequence()
-          .Append(transform.DOScale(0.8f, 0.1f))
-          .Append(transform.DOScale(1.5f, 0.3f))
-          .Append(transform.DOScale(1f, 0.2f));
+            DOTween.Sequence()
+              .Append(transform.DOScale(0.8f, 0.1f))
+              .Append(transform.DOScale(1.5f, 0.3f))
+              .Append(transform.DOScale(1f, 0.2f));
+        } 
+
     }
 
     private void ResultTimerData()

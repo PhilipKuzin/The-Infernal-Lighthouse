@@ -17,14 +17,14 @@ public class Player : MonoBehaviour, IDamageable, IEnemyTarget, IPauseHandler
 
     private float _moveSpeed = 5;
     private int _currentHealth;
-    private int _damage = 1; 
+    private int _damage = 1;
     private int _fragsCounter = 0;
     private int _comparator = 1;
     private int _comparatorMultiplier = 2;
 
     private bool _isActive;
     private bool _isPaused;
-    
+
     public Vector3 Position => transform.position;
     public int MaxHealth => 10;
     public float HealthNormalized => (float)_currentHealth / MaxHealth;
@@ -93,7 +93,8 @@ public class Player : MonoBehaviour, IDamageable, IEnemyTarget, IPauseHandler
 
     public void TakeDamage(int inputDamage)
     {
-        Camera.main.DOShakePosition(1,0.6f);
+        if (Camera.main.transform != null)
+            Camera.main.DOShakePosition(1, 0.6f);
 
         CurrentHealth -= inputDamage;
 

@@ -3,7 +3,7 @@ using System;
 using UnityEngine;
 using Zenject;
 
-[RequireComponent(typeof(Rigidbody), typeof(BoxCollider))]
+[RequireComponent(typeof(Rigidbody), typeof(SphereCollider))]
 public class Player : MonoBehaviour, IDamageable, IEnemyTarget, IPauseHandler
 {
     public event Action OnHealthChanged;
@@ -56,6 +56,11 @@ public class Player : MonoBehaviour, IDamageable, IEnemyTarget, IPauseHandler
         _movementHandler.OnMove -= LookOnCursor;
         _movementHandler.OnClicked -= ClickAction;
         _raycastAttack.OnEnemyKilled -= IncreaseFragsСount;
+    }
+
+    private void OnDestroy()
+    {
+        DOTween.KillAll(true);
     }
 
     [Inject]
@@ -127,7 +132,7 @@ public class Player : MonoBehaviour, IDamageable, IEnemyTarget, IPauseHandler
 
     private void LookOnCursor(Vector3 position)
     {
-        if (_isPaused == true)
+        if (_isPaused)
             return;
 
         Plane playerPlane = new Plane(Vector3.up, transform.position);
@@ -136,8 +141,22 @@ public class Player : MonoBehaviour, IDamageable, IEnemyTarget, IPauseHandler
         if (playerPlane.Raycast(ray, out float hitdist))
         {
             Vector3 targetPoint = ray.GetPoint(hitdist);
-            Quaternion targetRotation = Quaternion.LookRotation(targetPoint - transform.position);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, _moveSpeed * Time.deltaTime);
+            // Вычисляем направление к целевой точке
+            Vector3 direction = targetPoint - transform.position;
+
+            // Убираем компонент Y из направления, чтобы вращение было только в горизонтальной плоскости
+            direction.y = 0;
+
+            // Проверяем, что направление не нулевое
+            if (direction.sqrMagnitude > 0)
+            {
+                // Создаем кватернион для поворота
+                Quaternion targetRotation = Quaternion.LookRotation(direction);
+                // Применяем дополнительный поворот на -90 градусов вокруг оси X
+                targetRotation *= Quaternion.Euler(-90, 0, 0);
+                // Плавно вращаем объект
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, _moveSpeed * Time.deltaTime);
+            }
         }
     }
 }

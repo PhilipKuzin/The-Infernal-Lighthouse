@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class UIPopUpDefeatPanel : MonoBehaviour
 {
@@ -30,5 +31,6 @@ public class UIPopUpDefeatPanel : MonoBehaviour
     {
         OnClickRestartBtn?.Invoke();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        DOTween.KillAll(true);
     }
 }

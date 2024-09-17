@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -33,6 +34,7 @@ public class UIPopUpPausePanel : MonoBehaviour
     {
         OnClickedRestartBtn?.Invoke();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        DOTween.KillAll(true);
     }
 
     private void OnClickResumeBtn()

@@ -3,11 +3,10 @@ using TMPro;
 using System.Collections;
 using Zenject;
 using System;
-
+using DG.Tweening;
 
 public class UIWidgetTimer : MonoBehaviour, IPauseHandler
 {
-
     private const int SecondsInMinute = 60;
     public String CurrentTime => _timerView.text;
     public String BestTime; // must to edit
@@ -23,29 +22,22 @@ public class UIWidgetTimer : MonoBehaviour, IPauseHandler
 
     private bool _isPaused;
 
-
     private void Start()
     {
         _timerView = GetComponentInChildren<TMP_Text>();
-        //LoadBestTime();
     }
 
     private void OnDisable()
     {
-
         _level.OnLevelStarted -= StartTimer;
         _level.OnLevelLost -= StopTimer;
         _level.OnLevelLost -= ResultTimerData;
-
     }
-
-
 
     public void SetPaused(bool isPaused)
     {
         _isPaused = isPaused;
     }
-
 
     [Inject]
     private void Construct(PauseManager _pauseManager, Level level)
@@ -60,9 +52,13 @@ public class UIWidgetTimer : MonoBehaviour, IPauseHandler
 
     private void StartTimer()
     {
-
+        Debug.Log("ВЫЗВАЛОСЬ");
         _timerCoroutine = CoroutineRunner.StartRoutine(ITimer());
 
+        DOTween.Sequence()
+          .Append(transform.DOScale(0.8f, 0.1f))
+          .Append(transform.DOScale(1.5f, 0.3f))
+          .Append(transform.DOScale(1f, 0.2f));
     }
 
     private void ResultTimerData()
@@ -70,31 +66,13 @@ public class UIWidgetTimer : MonoBehaviour, IPauseHandler
         int resultTime = _min * SecondsInMinute + _sec;
 
         if (resultTime < _bestTime || _bestTime == 0)
-        {
             _bestTime = resultTime;
-            //SaveBestTime();
-        }
     }
-
-    //private void LoadBestTime()
-    //{
-    //    // Загружаем лучшее время из PlayerPrefs
-    //    _bestTime = PlayerPrefs.GetInt("BestTime", 0);
-    //}
-
-    //private void SaveBestTime()
-    //{
-    //    // Сохраняем лучшее время в PlayerPrefs
-    //    PlayerPrefs.SetInt("BestTime", _bestTime);
-    //    PlayerPrefs.Save();
-    //}
 
     private void StopTimer()
     {
         CoroutineRunner.StopRoutine(_timerCoroutine);
-
     }
-
 
     IEnumerator ITimer()
     {
@@ -116,5 +94,4 @@ public class UIWidgetTimer : MonoBehaviour, IPauseHandler
             yield return new WaitForSeconds(1);
         }
     }
-
 }

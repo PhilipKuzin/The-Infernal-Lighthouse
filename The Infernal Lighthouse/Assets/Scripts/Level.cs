@@ -10,9 +10,10 @@ public class Level : MonoBehaviour
 
     private int _levelNumber;
 
-    private void Awake() 
+    private void Start() 
     {
         Invoke("Restart", 1f);
+        //Restart();
     }
 
     public void Restart()

@@ -12,7 +12,7 @@ public class Level : MonoBehaviour
 
     private void Start() 
     {
-        Invoke("Restart", 1f);
+        Invoke("Restart", 4f);
         //Restart();
     }
 

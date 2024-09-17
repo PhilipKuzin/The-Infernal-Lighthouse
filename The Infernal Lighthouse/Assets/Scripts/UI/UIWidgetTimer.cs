@@ -54,7 +54,6 @@ public class UIWidgetTimer : MonoBehaviour, IPauseHandler
     {
         if (transform != null)
         {
-            Debug.Log("ÂÛÇÂÀËÎÑÜ");
             _timerCoroutine = CoroutineRunner.StartRoutine(ITimer());
 
             DOTween.Sequence()
@@ -62,7 +61,6 @@ public class UIWidgetTimer : MonoBehaviour, IPauseHandler
               .Append(transform.DOScale(1.5f, 0.3f))
               .Append(transform.DOScale(1f, 0.2f));
         } 
-
     }
 
     private void ResultTimerData()

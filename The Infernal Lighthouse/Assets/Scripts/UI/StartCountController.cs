@@ -10,7 +10,6 @@ public class StartCountController : MonoBehaviour, IPauseHandler
     private float delayBetweenNumbers = 1f;
     private bool _isPaused;
 
-
     private void Start()
     {
         CoroutineRunner.StartRoutine(PlayNumberAnimations());
@@ -39,6 +38,7 @@ public class StartCountController : MonoBehaviour, IPauseHandler
             numberAnimation.DoStartAnimation();
             yield return new WaitForSeconds(delayBetweenNumbers);
         }
+        // здесь стартовать уровень
     }
 
 }

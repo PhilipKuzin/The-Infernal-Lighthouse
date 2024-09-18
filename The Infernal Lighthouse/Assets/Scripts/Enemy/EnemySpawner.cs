@@ -86,9 +86,13 @@ public class EnemySpawner : MonoBehaviour, IPauseHandler
                 _typeByLevel = (EnemyType)Random.Range(0, 3);
                 _spawnCooldown = 1.5f;
                 return _typeByLevel;
+            case 4:
+                _typeByLevel = (EnemyType)Random.Range(0, 3);
+                _spawnCooldown = 1.2f;
+                return _typeByLevel;
             default:
                 _typeByLevel = (EnemyType)Random.Range(0, 3);
-                _spawnCooldown = 1f;
+                _spawnCooldown = 0.9f;
                 return _typeByLevel;
         }
     }

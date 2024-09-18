@@ -36,6 +36,5 @@ public class Level : MonoBehaviour
         _spawner.StopWork(); 
         OnLevelLost?.Invoke();
     }
-
 }
 

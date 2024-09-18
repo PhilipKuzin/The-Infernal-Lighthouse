@@ -6,7 +6,7 @@ public class GameResultSaver
 
     public int GetBestScore()
     {
-        return PlayerPrefs.GetInt(BestScoreKey, int.MaxValue); 
+        return PlayerPrefs.GetInt(BestScoreKey, 0); 
     }
 
     public void SaveBestScore(int score)

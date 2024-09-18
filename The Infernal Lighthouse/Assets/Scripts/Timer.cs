@@ -22,7 +22,7 @@ public class Timer : MonoBehaviour, IPauseHandler
     private int _sec = -1;
     private int _min;
     private int _delta = 1;
-    private int _bestTime;
+    private int _bestTime = 0;
 
     private bool _isPaused;
 

@@ -14,7 +14,7 @@ public class RaycastAttak : IPauseHandler
     private PauseManager _pauseManager;
     private Coroutine _reloadCoroutine;
 
-    private const float ReloadTime = 2f;
+    private const float ReloadTime = 1.5f;
 
     private int _maxAmmo = 5;
     private int _currentAmmo;

@@ -19,14 +19,14 @@ public class Player : MonoBehaviour, IDamageable, IEnemyTarget, IPauseHandler
     private int _currentHealth;
     private int _damage = 1;
     private int _fragsCounter = 0;
-    private int _comparator = 1;
+    private int _comparator = 4;
     private int _comparatorMultiplier = 2;
 
     private bool _isActive;
     private bool _isPaused;
 
     public Vector3 Position => transform.position;
-    public int MaxHealth => 10;
+    public int MaxHealth => 100;
     public float HealthNormalized => (float)_currentHealth / MaxHealth;
 
     public bool IsActive

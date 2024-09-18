@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using Zenject;
 
-public class NumberController : MonoBehaviour, IPauseHandler
+public class StartCountController : MonoBehaviour, IPauseHandler
 {
     [SerializeField] private StartCountFunction[] numberAnimations;
     private PauseManager _pauseManager;

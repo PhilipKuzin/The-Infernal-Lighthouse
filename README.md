@@ -1,4 +1,4 @@
-# The-Infernal-Lighthouse (DEMO)
+# The-Infernal-Lighthouse
 
 Built-In низкополигональный бесконечный 3D-tower-defense под ПК. <br />
 
@@ -9,21 +9,32 @@ Built-In низкополигональный бесконечный 3D-tower-de
 4) Расширяемая, гибкая система ввода. <br />
 5) Фабрика создания разных типов врагов (+ configs) и логика их спавна. <br />
 6) Кастомные системы частиц под различные игровые события. <br />
-7) Игровой баланс (сложность от времени игры и количества фрагов). <br />
+7) Игровой баланс (сложность от времени игры). <br />
+8) Логика сохраниения игрового прогресса через PlayerPrefs. <br />
+Скачать игру: https://philipkuzin.itch.io/the-infernal-ligthouse
 
 Скриншоты:
 <br />
 <br />
-<img src="https://github.com/user-attachments/assets/1a65f917-a563-4aa0-a5d0-d4765fc8bfda" alt="" width="612" height="342">
+<img src="https://github.com/user-attachments/assets/b48f2489-229f-43f6-b688-90b2ee99cb9a" alt="" width="612" height="342">
 <br />
 <br />
-<img src="https://github.com/user-attachments/assets/13140524-def6-4030-b3a3-875af4ab7182" alt="" width="612" height="342">
+<img src="https://github.com/user-attachments/assets/66418226-2fff-4514-9010-538ec6e30f57" alt="" width="612" height="342">
 <br />
 <br />
-<img src="https://github.com/user-attachments/assets/f1106980-19ec-46a3-b809-0b0ed264be69" alt="" width="612" height="342">
+<img src="https://github.com/user-attachments/assets/770194aa-55a7-4c76-8ea9-7f32d31f38b1" alt="" width="612" height="342">
 <br />
 <br />
-<img src="https://github.com/user-attachments/assets/90697f1e-5a39-4620-a524-347010873c20" alt="" width="612" height="342">
+<img src="https://github.com/user-attachments/assets/fa241860-572b-423c-bee4-0991c6c2817e" alt="" width="612" height="342">
 <br />
 <br />
-<img src="https://github.com/user-attachments/assets/f05c5349-f9cb-4bb0-9753-0fe41277329f" alt="" width="612" height="342">
+<img src="https://github.com/user-attachments/assets/f436f28f-1386-4466-b92f-e31b4885c992" alt="" width="612" height="342">
+<br />
+<br />
+<img src="https://github.com/user-attachments/assets/41b440f1-7c4f-429e-acc5-07dfcdc536cd" alt="" width="612" height="342">
+<br />
+<br />
+<img src="https://github.com/user-attachments/assets/0d389d8c-0851-4ead-ba8a-4d22393c8c3b" alt="" width="612" height="342">
+<br />
+<br />
+<img src="https://github.com/user-attachments/assets/0e0897c7-9dd0-4a1e-bc5e-28595d7770d6" alt="" width="612" height="342">
